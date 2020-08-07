@@ -16,7 +16,7 @@ public class MemberDaoImpl implements MemberDao{
 	private SqlSession session;
 	
 	@Override
-	public void insert(MemberDto dto) {//dto 정보가 들어간다는 과정하에서
+	public void insert(MemberDto dto) {//dto 정보가 들어간다는 가정하에서
 		/*
 		 * 	mapper namespace : member
 		 * 	sql id : insert

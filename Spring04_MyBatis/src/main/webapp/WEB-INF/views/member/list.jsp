@@ -10,6 +10,7 @@
 </head>
 <body>
 <div class="container">
+	<a href="insertform.do">회원 추가 폼</a><%--/member/inserform.do 로 넘어간다. --%>
 	<h1>회원 목록 입니다.</h1>
 	<table class="table">
 		<thead class="thead-dark">
@@ -17,6 +18,8 @@
 				<th>번호</th>
 				<th>이름</th>
 				<th>주소</th>
+				<th>수정</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -25,6 +28,8 @@
 					<td>${tmp.num }</td>
 					<td>${tmp.name }</td>
 					<td>${tmp.addr }</td>
+					<td><a href="updateform.do?num=${tmp.num }">수정</a></td>
+					<td><a href="delete.do?num=${tmp.num }">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
