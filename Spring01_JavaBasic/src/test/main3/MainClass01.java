@@ -18,9 +18,3 @@ public class MainClass01 {
 		s1.showInfo();
 	}
 }
-
-
-
-
-
-

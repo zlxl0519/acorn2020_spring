@@ -1,5 +1,6 @@
 package com.gura.spring03;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class HomeController {
 	@RequestMapping("/home")
 	public String home(HttpServletRequest request) {
 		
-		//공지사항 목록이라고 가정하자
+		//공지사항 목록이라고 가정하자 // 데이터를 model 이라고한다.
 		List<String> noticeList=new ArrayList<String>();
 		noticeList.add("장마철이네요");
 		noticeList.add("어쩌구...");
@@ -24,14 +25,11 @@ public class HomeController {
 		
 		//view page 에 전달할 데이터를 request 영역에 담는다.
 		request.setAttribute("noticeList", noticeList);
-		
-		// view page 로 forward 이동해서 응답하기
-		// redirect 이동하면 request 영역에 담은 내용은 삭제된다. 
+		//view page 로 forward 이동해서  응답하기
+		// redirect 이동하면 request 영역에 담은 내용은 삭제된다.
 		// 리턴하는 문자열은 view 페이지의 위치를 알려주는 것이다.
 		// "/WEB-INF/views/"+"home"+".jsp"
-		return "home";
+		return "home";//여기는 view 페이지 라고 한다.
 	}
 	
 }
-
-

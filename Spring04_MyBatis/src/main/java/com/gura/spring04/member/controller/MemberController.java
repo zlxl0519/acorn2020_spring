@@ -12,10 +12,10 @@ import com.gura.spring04.member.dto.MemberDto;
 
 @Controller
 public class MemberController {
-	//의존객체를 주입 받는다.
+	
+	//의존객체를 주입 받는다.(DI)
 	@Autowired
 	private MemberDao dao;
-	
 	@RequestMapping("/member/list")
 	public ModelAndView list(ModelAndView mView) {
 		//회원목록을 얻어온다.
@@ -28,8 +28,3 @@ public class MemberController {
 		return mView;
 	}
 }
-
-
-
-
-

@@ -20,14 +20,8 @@
 		sedan1.setEngine(e1);
 	 -->
 	<bean id="sedan1" class="test.auto.Sedan">
-		<property name="name" value="소나타"/>
+		<property name="name" value="소나타" />
 		<property name="weight" value="1000"/>
 		<property name="engine" ref="e1"/>
 	</bean>
 </beans>
-
-
-
-
-
-

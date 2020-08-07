@@ -38,4 +38,5 @@ public class MemberDto {
 		this.addr = addr;
 	}
 	
+	
 }

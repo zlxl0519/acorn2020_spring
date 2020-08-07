@@ -7,9 +7,10 @@ import test.mypac.Remocon;
 
 public class MainClass02 {
 	public static void main(String[] args) {
-		//Spring 프레임워크를 활용해서 아래의 useRemocon() 메소드를 호출해 보세요.
+		//Spring 프레임 워크를 활용해서 아래의 useRemocon() 메소드를 호출해 보세요.
 		ApplicationContext context=
 				new ClassPathXmlApplicationContext("test/main2/init.xml");
+		
 		Remocon r=context.getBean(Remocon.class);
 		useRemocon(r);
 	}
@@ -19,6 +20,3 @@ public class MainClass02 {
 		r.down();
 	}
 }
-
-
-

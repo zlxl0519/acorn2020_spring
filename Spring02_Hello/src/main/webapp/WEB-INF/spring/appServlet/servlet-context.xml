@@ -20,7 +20,7 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+	<!-- com.gura.spring02 패키지 하위에 있는 객체는 스프링프레임워크의 객체에서 관리를 한다. -->
 	<context:component-scan base-package="com.gura.spring02" />
 	
 	

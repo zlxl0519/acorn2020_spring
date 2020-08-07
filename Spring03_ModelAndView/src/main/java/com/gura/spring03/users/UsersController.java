@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UsersController {
-	//회원 가입 폼 요청 처리 
-	@RequestMapping("/users/signup_form")
+	//회원 가입 폼 요청 처리
+	@RequestMapping("/users/signup_form")// /users/signup_form.do 요청이 왔을때 이것을 처리 하겠다는 의미
 	public String signupForm() {
 		//수행할 비즈니스 로직은 현재 없다.
 		
-		//view 페이지의 정보만 리턴해 준다. 
+		//view 페이지의 정보만 리턴해 준다.
+		// "/WEB-INF/views/ users/signup_form .jsp"
 		return "users/signup_form";
 	}
 	@RequestMapping("/users/signup")
@@ -24,57 +25,40 @@ public class UsersController {
 		System.out.println(id+"|"+pwd);
 		return "users/signup";
 	}
+	
 	@RequestMapping("/users/signup2")
-	public String signup2(@RequestParam String id,@RequestParam String pwd) {
+	public String signup2(@RequestParam String id, @RequestParam String pwd) {
 		/*
-		 * @RequestParam 어노테이션과 함께 메소드의 인자를 선언하면 
+		 * @RequestParam 어노테이션과 함께 메소드의 인자를 선언하면
 		 * 요청 파라미터가 자동 추출되어서 전달된다.
-		 * @RequestParam 은 생략가능 
-		 * form 요소의 name 속성의 value 와 지역 변수의 이름이 같아야 한다. 
+		 * @RequestParam 은 생략가능
+		 * form 요소의 name 속성의 value 와  지역 변수의 이름이 같아야 한다.
 		 * 
 		 * name="id" : String id
 		 * name="pwd" : String pwd
 		 * 
 		 * GET 방식 파라미터라면
 		 * 
-		 * ?name=xxx  : String name
-		 * ?addr=xxx  : String addr
+		 * ?name=xxx : String name
+		 * ?addr=xxx : String addr
 		 * ?pageNum=xxx : String pageNum
-		 * ?pageNum=xxx : int pageNum
+		 * ?pageNum=xxx : int pageNum //Integer.parse 까지 해주고 넣어줄수도 있다.
 		 */
 		System.out.println(id+"|"+pwd);
-		
 		return "users/signup";
 	}
 	
 	@RequestMapping("/users/signup3")
 	public String signup3(@ModelAttribute UsersDto dto) {
 		/*
-		 *  @ModelAttrubute 어노테이션과 함께 dto 를 선언해 놓으면 
-		 *  전송된 파라미터가 추출되고 dto 에 담겨서 전달된다.
-		 *  @ModelAttrubute 는 생략 가능
-		 *  form 요소의 name 속성의 value 와 dto 의 필드명이 같아야 한다.
-		 *  GET 방식 전송이라면 파라미터명과 dto 의 필드명이 같아야 한다.
+		 * 	@ModelAttrubute 어노테이션과 함께 dto 를 선언해 놓으면
+		 * 	전송된 파라미터가 추출되고 dto 에 담겨서 전달된다.
+		 * 	@ModelAttrubute 는 생략 가능
+		 * 	form 요소의 name 속성의 value 와 dto 의 필드명이 같아야 한다.
+		 * 	GET 방식 전송이라면 파라미터명과 dto 의 필드명이 같아야 한다.
+		 * 
 		 */
 		System.out.println(dto.getId()+"|"+dto.getPwd());
 		return "users/signup";
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

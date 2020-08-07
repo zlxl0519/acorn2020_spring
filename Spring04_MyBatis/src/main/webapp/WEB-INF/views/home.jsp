@@ -9,14 +9,9 @@
 <body>
 <div class="container">
 	<h1>인덱스 페이지 입니다.</h1>
-	<ul>
+	<ul><%--myBatis 기반으로 사용한다. --%>
 		<li><a href="member/list.do">회원 목록 보기</a></li>
 	</ul>
 </div>
 </body>
 </html>
-
-
-
-
-

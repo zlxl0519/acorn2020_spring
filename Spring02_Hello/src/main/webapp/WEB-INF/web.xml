@@ -21,6 +21,7 @@
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
+		<!-- 스프링이 만든 Servlet 이다.  -->
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
@@ -28,7 +29,7 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+	<!-- xxx.nhn 이라는 곳에는 DispatcherServlet 을 적용한다. -->
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>*.nhn</url-pattern>

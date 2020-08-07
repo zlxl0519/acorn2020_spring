@@ -5,7 +5,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import test.mypac.Weapon;
 
-
 public class MainClass {
 	public static void main(String[] args) {
 		
@@ -16,7 +15,6 @@ public class MainClass {
 		
 		// Spring Bean Container 에서 Weapon type 의 참조값 얻어오기
 		Weapon w=context.getBean(Weapon.class);
-	
 		useWeapon(w);
 	}
 	
@@ -24,11 +22,3 @@ public class MainClass {
 		w.attack();
 	}
 }
-
-
-
-
-
-
-
-
