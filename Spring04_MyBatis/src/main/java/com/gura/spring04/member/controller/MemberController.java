@@ -18,7 +18,7 @@ import com.gura.spring04.member.service.MemberService;
 @Controller
 public class MemberController {
 	
-	//의존객체를 주입 받는다.(DI)
+	//의존객체를 주입 받는다.(DI)//관리하고 있는 객체 중에서 MemberSercvice type 의  객체가 있으면 넣어준다.
 	@Autowired
 	private MemberService service;
 	
@@ -38,7 +38,7 @@ public class MemberController {
 	}
 	
 	//회원정보 수정 폼 요청 처리
-	// GET 방식 /member/updateform 요청 처리 // 좀더 정확하게 써놓은것 post 방식이면 반응하지 않는다.
+	// GET 방식 /member/updateform 요청 처리 // 좀더 정확하게 써놓은것  정보를 보낸것이 post 방식이면 반응하지 않는다.
 	@RequestMapping(value = "/member/updateform", method = RequestMethod.GET)
 	public ModelAndView updateform(@RequestParam int num, ModelAndView mView) {//get parameter 로 넘어온다.
 		
