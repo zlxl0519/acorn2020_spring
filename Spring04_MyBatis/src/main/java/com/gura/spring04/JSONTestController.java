@@ -59,7 +59,7 @@ public class JSONTestController {
 	
 	@RequestMapping("/json05")
 	@ResponseBody
-	public Map<String, Object> json05(){
+	public Map<String, Object> json05(){//{"email":"aaa@naver.com", "hobby":["java","jsp","spring"] }
 		Map<String, Object> map=new HashMap<>();
 		map.put("email", "aaa@naver.com");
 		
@@ -74,8 +74,8 @@ public class JSONTestController {
 	}
 	
 	@RequestMapping("/json06")
-	@ResponseBody
-	public List<Map<String, Object>> json06(){
+	@ResponseBody 
+	public List<Map<String, Object>> json06(){ // [{}, {}...] 이런 형태
 		Map<String, Object> map1=new HashMap<>();
 		map1.put("num", 1);
 		map1.put("name", "김구라");
