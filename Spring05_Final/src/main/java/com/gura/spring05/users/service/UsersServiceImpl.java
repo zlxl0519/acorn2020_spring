@@ -103,7 +103,7 @@ public class UsersServiceImpl implements UsersService{
 	}
 	
 	@Override
-	public void updateUsers(HttpSession session, UsersDto dto) {
+	public void updateUser(HttpSession session, UsersDto dto) {
 		// 로그인된 아이디를 읽어와서
 		String id=(String)session.getAttribute("id");
 		//UsersDto 에 담고
@@ -113,9 +113,13 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
-	public void pwdUpdate(UsersDto dto, ModelAndView mView, HttpSession session) {
-		// TODO Auto-generated method stub
-		
+	public void updateUserPwd(UsersDto dto, ModelAndView mView, HttpSession session) {
+		String id=(String)session.getAttribute("id");
+		dto.setId(id);
+		//dao 를 이용해서 비밀번호를 수정한다.(실패 가능성 있음)
+		boolean isSuccess=dao.updatePwd(dto);
+		//mView 객체에 성공 여부를 담는다.
+		mView.addObject("isSuccess", isSuccess);
 	}
 
 }

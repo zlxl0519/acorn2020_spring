@@ -120,22 +120,24 @@ public class UsersController {
 	@RequestMapping("/users/private/update")
 	public ModelAndView update(HttpServletRequest request, UsersDto dto, ModelAndView mView) {
 		//service 객체를 이용해서 개인정보를 수정한다.
-		service.updateUsers(request.getSession(), dto);
+		service.updateUser(request.getSession(), dto);
 		//개인 정보 보기 페이지로 리다일렉트 이동한다.
 		mView.setViewName("redirect:/users/private/info.do");
 		return mView;
 	}
 	
-	@RequestMapping("/users/pwd_updateform")
-	public String pwd_updateform() {
+	@RequestMapping("/users/private/pwd_updateform")
+	public ModelAndView pwdUpdateform(ModelAndView mView) {
 		
-		return "users/pwd_updateform";
+		mView.setViewName("users/private/pwd_updateform");
+		return mView;
 	}
 	
-	@RequestMapping("/users/pwd_updatd")
-	public ModelAndView pwd_update(UsersDto dto, ModelAndView mView, HttpSession session) {
-		
-		
+	@RequestMapping("/users/private/pwd_update")
+	public ModelAndView pwdUpdate(ModelAndView mView, UsersDto dto, HttpServletRequest request) {
+		service.updateUserPwd(dto, mView, request.getSession());
+		//view 페이지로 forward 이동해서 응답
+		mView.setViewName("users/private/pwd_update");
 		return mView;
 	}
 }
