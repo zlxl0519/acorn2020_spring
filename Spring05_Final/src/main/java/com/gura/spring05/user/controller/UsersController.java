@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gura.spring05.users.dto.UsersDto;
@@ -78,5 +79,53 @@ public class UsersController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/home.do";
+	}
+	
+	//개인정보보기 요청 처리
+	@RequestMapping("/users/private/info")
+	public ModelAndView info(HttpServletRequest request, ModelAndView mView) {//아이디는 session으로 넘겨주던 request로 넘겨주던 dto 로 넘겨주던 선택
+		service.getInfo(request.getSession(), mView); //request 에서 session 을 받아서 사용할수 있다.
+		mView.setViewName("users/private/info"); // /WEB-INF/views/ users/priate/info.jsp
+		return mView;
+	}
+	
+	@RequestMapping("/users/private/delete")
+	public ModelAndView delete(HttpServletRequest request, ModelAndView mView) {
+		//서비스를 이용해서 사용자 정보를 삭제하고
+		service.deleteUser(request.getSession());
+		//view 페이지로 forward 이동해서 응답
+		mView.setViewName("users/private/delete");
+		return mView;
+	}
+	//회원정보 수정폼 요청 처리
+	@RequestMapping("/users/private/updateform")
+	public ModelAndView updateForm(HttpServletRequest request, ModelAndView mView) {
+		service.getInfo(request.getSession(), mView);
+		mView.setViewName("users/private/updateform");
+		return mView;
+	}
+	
+	// ajax 프로필 사진 업로드 요청 처리
+	@RequestMapping("/users/private/profile_upload")
+	@ResponseBody
+	public Map<String, Object> profile_upload(HttpServletRequest request, @RequestParam MultipartFile image){
+		//service 객체를 이용해서 이미지를 upload 폴더에 저장하고 Map 을 리턴 받는다.
+		Map<String, Object> map=service.saveProfileImage(request, image);
+		//{"imageSrc":"/upload/xxx.jpg"} 형식의 JSON 문자열을 출력하기 위해
+		//Map 을 @ResponseBody 로 리턴해준다.
+		return map;
+	}
+	
+	@RequestMapping("/users/pwd_updateform")
+	public String pwd_updateform() {
+		
+		return "users/pwd_updateform";
+	}
+	
+	@RequestMapping("/users/pwd_updatd")
+	public ModelAndView pwd_update(UsersDto dto, ModelAndView mView, HttpSession session) {
+		
+		
+		return mView;
 	}
 }

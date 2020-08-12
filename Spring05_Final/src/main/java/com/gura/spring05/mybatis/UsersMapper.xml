@@ -16,4 +16,16 @@
 		from users
 		where id=#{id} and pwd=#{pwd}
 	</select>
+	<select id="getData" parameterType="string" resultType="usersDto"> <!-- 여기의 regdate가 dto 의 필드명과 같아야 된다. -->
+		select id, pwd, email, profile, to_char(regdate,'yy.mm.dd hh24"시"mm"분"')as regdate
+		from users
+		where id=#{id}
+	</select>
+	<delete id="delete" parameterType="string">
+		delete from users
+		where id=#{id}
+	</delete>
+	<update id="updatePwd" parameterType="usersDto">
+		
+	</update>
 </mapper>

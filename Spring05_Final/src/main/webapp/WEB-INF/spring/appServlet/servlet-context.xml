@@ -73,6 +73,9 @@
 	
 	<context:component-scan base-package="com.gura.spring05" />
 	
-	
+	<!-- Multipart 폼 전송 처리를 위한 bean 설정--><!-- value 사이즈는 * 는 쓸수 없다 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="102400000"></beans:property>
+	</beans:bean>
 	
 </beans:beans>
