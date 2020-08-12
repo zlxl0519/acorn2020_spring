@@ -70,7 +70,7 @@ public class UsersServiceImpl implements UsersService{
 		//로그 아웃 처리
 		session.invalidate();
 	}
-
+	//개인정보 수정에서 profile image 를 value 값으로 넣어주기 위한 과정
 	@Override
 	public Map<String, Object> saveProfileImage(HttpServletRequest request, MultipartFile mFile) {
 		//원본 파일명
