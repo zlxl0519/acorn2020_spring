@@ -1,4 +1,4 @@
-package com.gura.spring05.user.controller;
+package com.gura.spring05.users.controller;
 
 import java.net.URLEncoder;
 import java.util.Map;
