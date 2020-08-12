@@ -17,5 +17,6 @@ public interface UsersService {
 	public void getInfo(HttpSession session, ModelAndView mView);//아이디 인식을 위해 session, 개인정보를 받기 위해 mView
 	public void deleteUser(HttpSession session);
 	public Map<String, Object> saveProfileImage(HttpServletRequest request, MultipartFile image);
+	public void updateUsers(HttpSession session, UsersDto dto);
 	public void pwdUpdate(UsersDto dto, ModelAndView mView, HttpSession session);
 }

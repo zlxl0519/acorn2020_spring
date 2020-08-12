@@ -116,6 +116,16 @@ public class UsersController {
 		return map;
 	}
 	
+	//개인 정보 수정 반영 요청 처리
+	@RequestMapping("/users/private/update")
+	public ModelAndView update(HttpServletRequest request, UsersDto dto, ModelAndView mView) {
+		//service 객체를 이용해서 개인정보를 수정한다.
+		service.updateUsers(request.getSession(), dto);
+		//개인 정보 보기 페이지로 리다일렉트 이동한다.
+		mView.setViewName("redirect:/users/private/info.do");
+		return mView;
+	}
+	
 	@RequestMapping("/users/pwd_updateform")
 	public String pwd_updateform() {
 		
