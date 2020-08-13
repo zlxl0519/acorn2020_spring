@@ -28,6 +28,6 @@
 	<update id="updatePwd" parameterType="usersDto">
 		update users
 		set pwd=#{newPwd}
-		where id=#{id} and pwd=#{pwd}
+		where id=#{id}
 	</update>
 </mapper>
