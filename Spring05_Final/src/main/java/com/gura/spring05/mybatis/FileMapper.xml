@@ -40,4 +40,21 @@
 			</when>
 		</choose>
 	</select>
+	
+	<insert id="insert" parameterType="fileDto">
+		INSERT INTO board_file
+		(num, writer, title, orgFileName, saveFileName, fileSize, regdate)
+		values(board_file_seq.NEXTVAL, #{writer}, #{title}, 
+			#{orgFileName}, #{saveFileName}, #{fileSize}, SYSDATE)
+	</insert>
+	<select id="getData" parameterType="int" resultType="fileDto">
+		SELECT num, writer, title, orgFileName, saveFileName, fileSize, regdate
+		FROM board_file
+		WHERE num=#{num}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_file
+		WHERE num=#{num}
+	</delete>
 </mapper>

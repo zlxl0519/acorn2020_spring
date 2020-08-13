@@ -69,6 +69,7 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1"/>
 	</beans:bean>
 	
 	<context:component-scan base-package="com.gura.spring05" />
@@ -78,4 +79,13 @@
 		<beans:property name="maxUploadSize" value="102400000"></beans:property>
 	</beans:bean>
 	
+	<!-- 
+		bean 의 이름을 이용해서 view 로 이동할수 있도록 설정
+		setOrder(0) 는 0 순위로 찾아 가겠다는 의미 
+		0 순위로 찾아서 없으면 
+		views 폴더 안에서 jsp 페이지를 찾게 된다.
+	-->
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"/> <!-- container 에서 관리하는 view 에서 최우선 적으로 찾고, 없으면 /WEB-INF/views/fileDownView.jsp 에서 찾는다. -->
+	</beans:bean>
 </beans:beans>

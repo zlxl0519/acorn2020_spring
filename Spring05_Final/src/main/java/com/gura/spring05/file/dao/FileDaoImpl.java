@@ -24,4 +24,21 @@ public class FileDaoImpl implements FileDao{
 	public int getCount(FileDto dto) {//resultType= int 를 리턴한다.
 		return session.selectOne("file.getCount", dto);
 	}
+	//파일 정보를 저장하는 메소드
+	@Override
+	public void insert(FileDto dto) {
+		session.insert("file.insert", dto);
+	}
+
+	//인자로 전달되는 번호에 해당하는 파일 정보를 리턴하는 메소드
+	@Override
+	public FileDto getData(int num) {
+		FileDto dto=session.selectOne("file.getData", num);
+		return dto;
+	}
+
+	@Override
+	public void delete(int num) {
+		session.delete("file.delete", num);
+	}
 }

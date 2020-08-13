@@ -1,5 +1,6 @@
 package com.gura.spring05.file.service;
 
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -7,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.gura.spring05.exception.NotDeleteException;
 import com.gura.spring05.file.dao.FileDao;
 import com.gura.spring05.file.dto.FileDto;
 
@@ -31,6 +35,7 @@ public class FileServiceImpl implements FileService{
 		int pageNum=1;
 		//보여줄 페이지의 번호가 파라미터로 전달되는지 읽어와 본다.	
 		String strPageNum=request.getParameter("pageNum");
+		//어떤 것으로 검색했는지 파라미터 값
 		String condition=request.getParameter("condition");
 		if(strPageNum != null){//페이지 번호가 파라미터로 넘어온다면
 			//페이지 번호를 설정한다.
@@ -94,5 +99,73 @@ public class FileServiceImpl implements FileService{
 		request.setAttribute("condition", condition);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("encodedK", encodedK);
+	}
+
+	@Override
+	public void saveFile(FileDto dto, ModelAndView mView, HttpServletRequest request) {
+		//업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값 얻어오기
+		MultipartFile myFile=dto.getMyFile();
+		//원본 파일명
+		String orgFileName=myFile.getOriginalFilename();
+		//파일의 크기
+		long fileSize=myFile.getSize();
+		
+		// webapp/upload 폴더 까지의 실제 경로
+		String realPath=request.getServletContext().getRealPath("/upload");
+		//저장할 파일의 상세 경로 // upload\ 뒤에 붙을 파일명을 위해 필요 upload 뒤에 \(윈도우에서) 를 만들기 위해 
+		String filePath=realPath+File.separator;
+		//디렉토리를 만들 파일 객체 생성
+		File upload=new File(filePath);
+		if(!upload.exists()) {//만일 디렉토리가 존재하지 않으면
+			upload.mkdir();//만들어 준다
+		}
+		//저장할 파일 명을 구성한다.
+		String saveFileName= System.currentTimeMillis()+orgFileName;
+		
+		try {
+			//upload 폴더에 파일을 저장한다.
+			myFile.transferTo(new File(filePath+saveFileName));
+			System.out.println(filePath+saveFileName);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		//dto 에 업로된 파일의 정보를 담는다.
+		String id=(String)request.getSession().getAttribute("id");
+		dto.setWriter(id); //세션에서 읽어낸 파일 업로더의 아이디
+		dto.setOrgFileName(orgFileName);
+		dto.setSaveFileName(saveFileName);
+		dto.setFileSize(fileSize);
+		//fileDao 를 이용해서 DB 에 저장하기
+		fileDao.insert(dto);
+		//view 페이지에서 사용할 모델 담기
+		mView.addObject("dto", dto);
+	}
+
+	@Override
+	public void getFileDate(int num, ModelAndView mView) {
+		//fileDao 를 이용해서 파일 정보를 얻어온 다음
+		FileDto dto=fileDao.getData(num);
+		//mView 객체에 담는다.
+		mView.addObject("dto", dto);
+	}
+
+	@Override
+	public void deleteFile(int num, HttpServletRequest request) {
+		//1. 삭제할 파일의 정보를 읽어온다.
+		FileDto dto=fileDao.getData(num);
+		//2. 본인이 작성한 글이 아닌 경우 에러 처리를 한다(예외를 발생시킨다)
+		String id=(String)request.getSession().getAttribute("id");
+		//만일 로그인된 아이디와 글 작성자가 다르면
+		if(!id.equals(dto.getWriter())) {// 예외(exception)을 일부러 발생 시킬수 있다. 실행순서가 다른데로 넘어가기 때문에 삭제 시킬수 없다
+			
+			throw new NotDeleteException("남의 파일 지우기 없기!");
+		}
+		//파일 시스템에서 파일 삭제
+		String saveFileName=dto.getSaveFileName();
+		String path=request.getServletContext().getRealPath("/upload")+
+					File.pathSeparator+saveFileName;
+		new File(path).delete();
+		//DB 에서 파일 삭제
+		fileDao.delete(num);
 	}
 }
