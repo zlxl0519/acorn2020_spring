@@ -142,7 +142,7 @@ public class UsersServiceImpl implements UsersService{
 		UsersDto resultDto=dao.getData(id); //null 일 가능성은 없다.
 		//DB 에 저장된 암호화된 비밀번호
 		String encodedPwd=resultDto.getPwd();
-		//로그인폼에 입력한 비밀번호
+		//기존 비밀번호
 		String inputPwd=dto.getPwd(); 
 		//BCrypt 클래스의 static 메소드를 이용해서 일치 여부를 얻어낸다.
 		boolean isValid=BCrypt.checkpw(inputPwd,encodedPwd);
