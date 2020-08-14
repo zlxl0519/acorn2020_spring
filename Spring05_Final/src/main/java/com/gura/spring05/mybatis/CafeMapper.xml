@@ -1,5 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cafe">
-
+	<select id="getList" parameterType="cafeDto" resultType="cafeDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, writer, title, content, viewCount, regdate
+				FROM board_cafe
+				<choose>
+					<when test="title != null and content != null"><!-- 파라미터 타입으로 전달된 데이터를 읽을수 있다. -->
+						WHERE title LIKE '%'||#{title}||'%' 
+						OR content LIKE '%'||#{content}||'%'
+					</when>
+					<when test="title != null">
+						WHERE title LIKE '%'||#{title}||'%'
+					</when>
+					<when test="writer != null">
+						WHERE writer LIKE '%'||#{writer}||'%'
+					</when>
+				</choose>
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum} 
+	</select>
+	
+	<select id="getCount" parameterType="cafeDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM board_cafe
+		<choose>
+			<when test="title != null and content != null"><!-- 파라미터 타입으로 전달된 데이터를 읽을수 있다. -->
+				WHERE title LIKE '%'||#{title}||'%' 
+				OR content LIKE '%'||#{content}||'%'
+			</when>
+			<when test="title != null">
+				WHERE title LIKE '%'||#{title}||'%'
+			</when>
+			<when test="writer != null">
+				WHERE writer LIKE '%'||#{writer}||'%'
+			</when>
+		</choose>
+	</select>
+	
+	<insert id="insert" parameterType="cafeDto">
+		insert into board_cafe 
+		(num, writer, title, content, viewCount, regdate)
+		values (board_cafe_seq.NEXTVAL, #{writer}, #{title}, #{content}, #{viewCount}, SYSDATE)
+	</insert>
+	<select id="getData" parameterType="int" resultType="cafeDto">
+		SELECT result1.*
+		FROM
+			(SELECT num, writer, title, content, viewCount, To_CHAR(regdate,'YY.MM.DD HH24:MI' ) AS regdate
+				LAG(num,1,0) OVER (ORDER BY num DESC) AS prevNum, <!-- 별칭(칼럼명)은 dto 의 필드명과 같아야된다. -->
+				LEAD(num,1,0) OVER (ORDER BY num DESC) AS nextNum
+			FROM board_cafe) result1
+		WHERE num=#{num}
+	</select>
+	<update id="addViewCount" parameterType="int">
+		update board_cafe
+		set viewCount=viewCount+1
+		where num=#{num}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete board_cafe
+		where num=#{num}
+	</delete>
+	<update id="update" parameterType="cafeDto">
+		update board_cafe
+		set title=#{title}, content=#{content}
+		where num=#{num}
+	</update>
 </mapper>
