@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gura.spring05.cafe.dao.CafeDao;
 import com.gura.spring05.cafe.dto.CafeDto;
@@ -27,8 +29,6 @@ public class CafeServiceImpl implements CafeService{
 		int pageNum=1;
 		//보여줄 페이지의 번호가 파라미터로 전달되는지 읽어와 본다.	
 		String strPageNum=request.getParameter("pageNum");
-		//어떤 것으로 검색했는지 파라미터 값
-		String condition=request.getParameter("condition");
 		if(strPageNum != null){//페이지 번호가 파라미터로 넘어온다면
 			//페이지 번호를 설정한다.
 			pageNum=Integer.parseInt(strPageNum);
@@ -42,6 +42,8 @@ public class CafeServiceImpl implements CafeService{
 		검색 키워드에 관련된 처리
 		*/
 		String keyword=request.getParameter("keyword");
+		//어떤 것으로 검색했는지 파라미터 값
+		String condition=request.getParameter("condition");
 		if(keyword==null){//전달된 키워드가 없다면
 			condition="";
 			keyword="";//빈 문자열을 넣어준다.
@@ -92,4 +94,54 @@ public class CafeServiceImpl implements CafeService{
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("encodedK", encodedK);
 	}
+
+	@Override
+	public void getDetail(HttpServletRequest request) {
+		//파라미터로 전달되는 글번호
+		int num=Integer.parseInt(request.getParameter("num"));
+		/*
+		검색 키워드에 관련된 처리
+		*/
+		String keyword=request.getParameter("keyword");
+		//어떤 것으로 검색했는지 파라미터 값
+		String condition=request.getParameter("condition");
+		if(keyword==null){//전달된 키워드가 없다면
+			condition="";
+			keyword="";//빈 문자열을 넣어준다.
+		}
+		//인코딩된 키워드를 미리 만들어 둔다.
+		String encodedK=URLEncoder.encode(keyword);
+		//글번호와 건색 키워드를 담을 CafeDto 객체 생성
+		CafeDto dto=new CafeDto();
+		dto.setNum(num);//글번호 담기
+		
+		if(!keyword.equals("")){//만일 키워드가 넘어온다면
+			if(condition.equals("title_content")){
+				//검색 키워드를 FileDto 객체의 필드에 담는다.
+				dto.setTitle(keyword);
+				dto.setContent(keyword);
+			}else if(condition.equals("title")){
+				dto.setTitle(keyword);
+			}else if(condition.equals("writer")){
+				dto.setWriter(keyword);
+			}
+		}
+		//자세히 보여줄 글 정보
+		CafeDto resultDto=cafeDao.getData(dto);
+		
+		//view 페이지에서 필요한 내용 HttpServletRequest 에 담기
+		request.setAttribute("dto", resultDto);
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("encodedK", encodedK);
+		
+		//글 조회수 올리기
+		cafeDao.addViewCount(num);
+	}
+
+	@Override
+	public void saveContent(CafeDto dto) {
+		cafeDao.insert(dto);
+	}
+	
 }

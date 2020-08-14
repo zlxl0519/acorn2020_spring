@@ -12,7 +12,9 @@ public interface CafeDao {
 	//글 추가
 	public void insert(CafeDto dto);
 	//글정보 얻어오기
-	public CafeDto getData(int num);
+	public CafeDto getData(int num); //오버로딩 : 같은 메소드명으로 다른 형태의 메소드가 있는것
+	//키워드를 활용한 글정보 얻어오기
+	public CafeDto getData(CafeDto dto);
 	//조회수 증가 시키기
 	public void addViewCount(int num);
 	//글 삭제

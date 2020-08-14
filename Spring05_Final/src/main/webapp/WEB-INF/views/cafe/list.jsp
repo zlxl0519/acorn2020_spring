@@ -26,15 +26,10 @@
 		<c:forEach var="tmp" items="${list }">
 			<tr>
 				<td>${tmp.num }</td>
-				<td>${tmp.writer }</td>
-				<td><a href="detail.do?num=${tmp.num }">${tmp.title }</a></td>
+				<td>${tmp.writer }</td><%--검색 조건과 검색 키워드도 같이 보내줘야지 검색했을때 자세히 보기를 하면 이전글 다음글 이 검색한것에 맞춰서 보인다. --%>
+				<td><a href="detail.do?num=${tmp.num }&condition=${condition }&keyword=${encodedK }">${tmp.title }</a></td>
 				<td>${tmp.viewCount }</td>
 				<td>${tmp.regdate }</td>
-				<td>
-					<c:if test="${tmp.writer eq id }">
-						<a href="private/delete.do?num=${tmp.num }">삭제</a>
-					</c:if>
-				</td>
 			</tr>
 		</c:forEach>		
 		</tbody>
