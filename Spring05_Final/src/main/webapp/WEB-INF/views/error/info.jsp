@@ -12,7 +12,7 @@
 	<div class="container">
 		<h1>Oops!</h1>
 		<p class="alert alert-danger">
-			<strong>${exception.message }</strong>
+			<strong>${exception.message }</strong><%--exception 의 키값으로 예외 객체를담아서 그 객체 안에 있는 message라는 인자로 부모객체에게 보낸값을 호출할수 있다. --%>
 			<a href="${pageContext.request.contextPath }/">인덱스로</a>
 		</p>
 	</div>
