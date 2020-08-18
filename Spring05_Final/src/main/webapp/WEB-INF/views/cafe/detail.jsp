@@ -54,7 +54,7 @@
 	.comments form{
 		display: none;
 	}
-	/* .reply_icon  li 아이콘*/
+	/* .reply_icon 을 li 요소를 기준으로 배치 하기 */
 	.comments li{
 		position: relative; /* 이게 기준이 된다.*/
 	}
