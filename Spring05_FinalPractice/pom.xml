@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.seung</groupId>
+	<groupId>com.gura</groupId>
 	<artifactId>spring05</artifactId>
-	<name>Spring05_FinalPractice</name>
+	<name>Spring05_Final</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -115,7 +115,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency> 
 		
 		<!-- 추가 의존 라이브러리 -->
 		<!-- MyBatis 라이브러리 -->
@@ -175,9 +175,7 @@
 		    <artifactId>spring-tx</artifactId>
 		    <version>4.0.0.RELEASE</version>
 		</dependency>		  			
-
-		
-		        
+		       
 	</dependencies>
     <build>
         <plugins>
