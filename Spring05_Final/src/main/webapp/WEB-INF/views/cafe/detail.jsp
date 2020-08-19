@@ -15,10 +15,10 @@
 	}
 	/* 댓글 프로필 이미지를 작은 원형으로 만든다. */
 	#profileImage{
-		width : 50px;
-		height : 50px;
-		border : 1px solid #cecece;
-		border-radius : 50%;
+		width: 50px;
+		height: 50px;
+		border: 1px solid #cecece;
+		border-radius: 50%;
 	}
 	/* ul 요소의 기본 스타일 제거 */
 	.comments ul{
@@ -33,7 +33,8 @@
 		margin-left: 50px;
 	}
 	.comment_form textarea, .comment_form button, 
-		.comment-insert-form textarea, .comment-insert-form button{
+		.comment-insert-form textarea, .comment-insert-form button,
+		.comment-update-form textarea, .comment-update-form button{
 		float: left;
 	}
 	.comments li{
@@ -42,12 +43,14 @@
 	.comments ul li{
 		border-top: 1px solid #888;
 	}
-	.comment_form textarea, .comment-insert-form textarea{
+	.comment_form textarea, .comment-insert-form textarea,
+		.comment-update-form textarea{
 		width: 85%;
 		height: 100px;
 	}
-	.comment_form button, .comment-insert-form button{
-		width: 14%;
+	.comment_form button, .comment-insert-form button,
+		.comment-update-form button{
+		width: 15%;
 		height: 100px;
 	}
 	/* 댓글에 댓글을 다는 폼은 일단 숨긴다. */
@@ -56,15 +59,14 @@
 	}
 	/* .reply_icon 을 li 요소를 기준으로 배치 하기 */
 	.comments li{
-		position: relative; /* 이게 기준이 된다.*/
+		position: relative;
 	}
 	.comments .reply_icon{
-		position: absolute; /* relative 라고 지정된곳에서 움직으고 싶은 것에 지정한다. */
-		top: 1em; /* 움직임을 나타냄 */
+		position: absolute;
+		top: 1em;
 		left: 1em;
-		color:red;
+		color: red;
 	}
-	
 	pre {
 	  display: block;
 	  padding: 9.5px;
@@ -73,12 +75,12 @@
 	  line-height: 1.42857143;
 	  color: #333333;
 	  word-break: break-all;
-	  white-space: pre-wrap;
+	  word-wrap: break-word;
 	  background-color: #f5f5f5;
 	  border: 1px solid #ccc;
 	  border-radius: 4px;
 	}
-	/* 글 내용중에 이미지가 있으면 최대 폭을 100%로 제한하기*/
+	/* 글 내용중에 이미지가 있으면 최대 폭을 100%로 제한하기 */
 	.contents img{
 		max-width: 100%;
 	}
@@ -160,16 +162,16 @@
 						<li>삭제된 댓글 입니다.</li>
 					</c:when>
 					<c:otherwise>
-						<li <c:if test="${tmp.num ne tmp.comment_group }">style="padding-left:50px;"</c:if> >
-						<c:if test="${tmp.num ne tmp.comment_group }">
-							<svg class="reply_icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-return-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-	  							<path fill-rule="evenodd" d="M10.146 5.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 9l-2.647-2.646a.5.5 0 0 1 0-.708z"/>
-	  							<path fill-rule="evenodd" d="M3 2.5a.5.5 0 0 0-.5.5v4A2.5 2.5 0 0 0 5 9.5h8.5a.5.5 0 0 0 0-1H5A1.5 1.5 0 0 1 3.5 7V3a.5.5 0 0 0-.5-.5z"/>
-							</svg>
-						</c:if>
+						<li id="comment${tmp.num }" <c:if test="${tmp.num ne tmp.comment_group }">style="padding-left:50px;"</c:if> ><%--대댓글인 경우 --%>
+							<c:if test="${tmp.num ne tmp.comment_group }"><%--대댓글인 경우 --%>
+								<svg class="reply_icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-return-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+		  							<path fill-rule="evenodd" d="M10.146 5.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 9l-2.647-2.646a.5.5 0 0 1 0-.708z"/>
+		  							<path fill-rule="evenodd" d="M3 2.5a.5.5 0 0 0-.5.5v4A2.5 2.5 0 0 0 5 9.5h8.5a.5.5 0 0 0 0-1H5A1.5 1.5 0 0 1 3.5 7V3a.5.5 0 0 0-.5-.5z"/>
+								</svg>
+							</c:if>
 							<dl>
-								<dt>
-									<c:choose>
+								<dt><%--프로필 사진, 작성자, 날짜 --%>
+									<c:choose><%--프로필 사진이 없을때와 있을때 --%>
 										<c:when test="${empty tmp.profile }"><%--empty는 빈문자도 true null도 true 로 인식해 준다. --%>
 											<svg id="profileImage" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 		  										<path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -180,12 +182,13 @@
 										</c:otherwise>
 									</c:choose>
 									<span>${tmp.writer }</span>
-									<c:if test="${tmp.num ne tmp.comment_group }">
+									<c:if test="${tmp.num ne tmp.comment_group }"><%--대댓글인 경우 --%>
 										@<strong>${tmp.target_id }</strong>
 									</c:if>
 									<span>${tmp.regdate }</span>
 									<a href="javascript:" class="reply_link">답글</a>
 									<c:if test="${tmp.writer eq id }">
+										| <a href="javascrip:" class="comment-update-link">수정</a>
 										| <a href="javascript:deleteComment(${tmp.num })">삭제</a>
 									</c:if>
 								</dt>
@@ -193,14 +196,22 @@
 									<pre>${tmp.content }</pre><%--pre 요소는 개행기호를 인식해준다. --%>
 								</dd>
 							</dl>
-							<form class="comment-insert-form" action="private/comment_insert.do" method="post">
+							<form class="comment-insert-form" action="private/comment_insert.do" method="post"><%--대댓글을 다는 폼, 답글을 누르기 전까지 숨겨둔다. --%>
 								<input type="hidden" name="ref_group" value="${dto.num }"/>
 								<input type="hidden" name="target_id" value="${tmp.writer }" />
 								<input type="hidden" name="comment_group" value=${tmp.comment_group } />
 								<textarea name="content"></textarea>
 								<button type="submit">등록</button>
 							</form>
-						</li>
+							<!-- 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 -->
+							<c:if test="${tmp.writer eq id }">
+								<form class="comment-update-form" action="private/comment_update.do" method="post">
+									<input type="hidden" name="num" value="${tmp.num }"/>
+									<textarea name="content">${tmp.content }</textarea>
+									<button type="submit">수정</button>
+								</form>
+							</c:if>
+						</li>s
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -217,12 +228,30 @@
 			<textarea name="content"><c:if test="${empty id }">로그인이 필요합니다</c:if></textarea>
 			<button type="submit">등록</button>
 		</form>
-	</div>
+	</div><!-- comment_form div -->
 	
 </div>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>
 <script>
-
+	//댓글 수정 링크를 눌렀을때 호출되는 함수 등록
+	$(".comment-update-link").on("click", function(){
+		$(this).parent().parent().parent().find(".comment-update-form").slideToggle();
+	});
+	
+	//로딩한 jquery.form.min.js jquery 플러그인의 기능을 이용해서 댓글 수정폼을
+	//ajax 요청을 통해 전송하고 응답받기
+	$(".comment-update-form").ajaxForm(function(data){
+		console.log(data);
+		//수정이 일어난 댓글의 li 요소를 선택해서 원하는 작업을 한다.
+		var selector="#comment"+data.num; //"#comment6" 형식의 선택자 구성
+		
+		//댓글 수정 폼을 안보이게 한다.
+		$(selector).find(".comment-update-form").slideUp();
+		//pre 요소에 출력된 내용 수정하기
+		$(selector).find("pre").text(data.content);
+	});
+	
 	function deleteComment(num){
 		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
 		if(isDelete){
@@ -252,7 +281,7 @@
 	});
 
 
-	$(".comment_form").on("submit", function(){
+	$(".comment_form form").on("submit", function(){
 		//로그인 여부
 		var isLogin=${not empty id};
 		if(isLogin == false){
