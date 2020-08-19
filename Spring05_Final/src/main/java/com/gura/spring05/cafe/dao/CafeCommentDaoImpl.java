@@ -14,9 +14,9 @@ public class CafeCommentDaoImpl implements CafeCommentDao{
 	SqlSession session;
 
 	@Override
-	public List<CafeCommentDto> getList(int ref_group) {
+	public List<CafeCommentDto> getList(CafeCommentDto dto) {
 		
-		return session.selectList("cafeComment.getList", ref_group);
+		return session.selectList("cafeComment.getList", dto);
 	}
 
 	@Override
@@ -44,6 +44,12 @@ public class CafeCommentDaoImpl implements CafeCommentDao{
 	public CafeCommentDto getData(int num) {
 		
 		return session.selectOne("cafeComment.getData", num);
+	}
+
+	@Override
+	public int getCount(int ref_group) {
+		
+		return session.selectOne("cafeComment.getCount", ref_group);
 	}
 
 }

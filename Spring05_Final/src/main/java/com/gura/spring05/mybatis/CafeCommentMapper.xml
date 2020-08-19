@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cafeComment">
-	<select id="getList" parameterType="int" resultType="cafeCommentDto">
-		select num, writer, content, target_id, ref_group, 
-			comment_group, deleted, board_cafe_comment.regdate, profile
-		from board_cafe_comment 
-		inner join users
-		on board_cafe_comment.writer=users.id
-		where ref_group=#{ref_group}
-		order by comment_group asc, num asc
+	<select id="getList" parameterType="cafeCommentDto" resultType="cafeCommentDto">
+		select *
+		from
+			(select result1.*, rownum as rnum
+			from
+				(select num, writer, content, target_id, ref_group, 
+					comment_group, deleted, board_cafe_comment.regdate, profile
+				from board_cafe_comment 
+				inner join users
+				on board_cafe_comment.writer=users.id
+				where ref_group=#{ref_group}
+				order by comment_group asc, num asc) result1)
+		where rnum between #{startRowNum} and #{endRowNum}
 	</select>
 	<!--
 		inner join users on board_cafe_comment.writer=users.id (on 조인 조건) 
@@ -40,5 +45,11 @@
 		select num, writer, content, ref_group, comment_group, deleted, regdate
 		from board_cafe_comment
 		where num=#{num}
+	</select>
+	<select id="getCount" parameterType="int" resultType="int" >
+		select nvl(max(rownum),0)
+		from board_cafe_comment
+		where ref_group=#{ref_group}
+		order by comment_group asc, num asc
 	</select>
 </mapper>
