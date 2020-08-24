@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
  * 	Aspect : 공통관심사 (횡단 관심사)
  * 	
  * 	- 핵심 비즈니스 로직과는 상관없는 공통관심사를 따로 작성한다.
+ * 
+ * @Before : 메소드가 수행되기 전에 적용
+ * @After : 메소드가 수행된 이후에 적용
+ * @around : 메소드가 수행되기 이전 이후 다 에 적용
  */
 @Aspect //aspect 역활을 할수 있도록 필요한 어노테이션
 @Component //component scan 을 통해서 bean 이 되기 위한 어노테이션
