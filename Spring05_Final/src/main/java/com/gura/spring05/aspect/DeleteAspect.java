@@ -8,6 +8,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.gura.spring05.cafe.dao.CafeDao;
+import com.gura.spring05.cafe.dto.CafeDto;
 import com.gura.spring05.exception.NotDeleteException;
 import com.gura.spring05.file.dao.FileDao;
 import com.gura.spring05.file.dto.FileDto;
@@ -18,6 +20,34 @@ public class DeleteAspect {
 	
 	@Autowired
 	private FileDao fileDao;
+	@Autowired
+	private CafeDao cafeDao;
+	
+	@Around("execution(void com.gura.spring05.cafe.service.*.deleteContent(..))")
+	public void checkCafeDelete(ProceedingJoinPoint joinPoint) throws Throwable {
+		//인자로 받는 값 넣을 지역변수
+		int num=0;
+		HttpServletRequest request=null;
+		// 인자로 받은 값 가져오기
+		Object[] args=joinPoint.getArgs();
+		for(Object tmp:args) {
+			if(tmp instanceof Integer) {
+				num=(int)tmp;
+			}
+			if(tmp instanceof HttpServletRequest) {
+				request=(HttpServletRequest)tmp;
+			}
+		}
+		//삭제할 글 정보를 얻어온다.
+		CafeDto dto=cafeDao.getData(num);
+		//세션에 저장된 아이디를 읽어온다(로그인된 아이디)
+		String id=(String)request.getSession().getAttribute("id");
+		if(! id.equals(dto.getWriter())) {
+			throw new NotDeleteException("남의 글을 지우지 마세요!!");
+		}
+		//메소드 정상 수행하기
+		joinPoint.proceed();
+	}
 	
 	//file. service .안에 있는 모든 클래스의 delete 로 시작하는 인자는 아무거나 상관없는 메소드에 point cut
 	@Around("execution(void com.gura.spring05.file.service.*.delete*(..))")
