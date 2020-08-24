@@ -11,7 +11,7 @@
 <body>
 <div class="container">
 	<h1>회원 가입 폼 입니다.</h1>
-	<form action="signup.do" method="post" id="myFrom">
+	<form action="signup.do" method="post" id="myForm">
 		<div class="form-group">
 			<label for="id">아이디</label>
 			<input class="form-control" type="text" name="id" id="id"/>
