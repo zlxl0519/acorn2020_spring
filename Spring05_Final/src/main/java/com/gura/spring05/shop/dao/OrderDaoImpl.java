@@ -14,7 +14,6 @@ public class OrderDaoImpl implements OrderDao{
 
 	@Override
 	public void addOrder(OrderDto dto) {
-		// TODO Auto-generated method stub
-		
+		session.insert("shop.addOrder", dto);
 	}
 }
