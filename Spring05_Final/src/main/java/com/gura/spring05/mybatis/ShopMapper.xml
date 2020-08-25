@@ -4,29 +4,33 @@
 	<select id="getList" resultType="shopDto">
 		select num, name, price, remainCount
 		from shop
+		order by num asc;
 	</select>
+	<!-- remainCount 가 0 일경우 SQLException => DataAccessException 발생(Spring 이 바꿔서 Exception 발생시킴) -->
 	<update id="minusCount" parameterType="int">
 		update shop
 		set remainCount = remainCount-1
 		where num=#{num}
 	</update>
+	<!-- check 제약조건때문에 sqlException => DataAccessException 이 발생(트랜젝션에서는 spring 이 DataAccessException으로 바꿔서 발생시킨다) -->
 	<update id="minusMoney" parameterType="shopDto">
 		update client_account
-		set money=money-(select price from shop where num=#{num})
+		set money=money-#{price}
 		where id=#{id}
 	</update>
 	<update id="plusPoint" parameterType="shopDto">
 		update client_account
-		set point=point+(select price*0.1 from shop where num=#{num})
+		set point=point + #{price}*0.1
 		where id=#{id}
 	</update>
 	<select id="getPrice" parameterType="int" resultType="int">
 		select price
-		from shop11
+		from shop
 		where num=#{num}
 	</select>
 	<insert id="addOrder" parameterType="orderDto">
-		insert into client_order (num, id, code, addr)
+		insert into client_order 
+		(num, id, code, addr)
 		values(client_order_seq.nextval, #{id}, #{code}, #{addr})
 	</insert>
 </mapper>
