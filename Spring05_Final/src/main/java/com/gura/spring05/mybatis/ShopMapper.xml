@@ -4,7 +4,7 @@
 	<select id="getList" resultType="shopDto">
 		select num, name, price, remainCount
 		from shop
-		order by num asc;
+		order by num asc
 	</select>
 	<!-- remainCount 가 0 일경우 SQLException => DataAccessException 발생(Spring 이 바꿔서 Exception 발생시킴) -->
 	<update id="minusCount" parameterType="int">
