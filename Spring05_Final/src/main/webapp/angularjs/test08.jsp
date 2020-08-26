@@ -19,7 +19,7 @@
 			$http({
 				url:"send.jsp",
 				method:"post",
-				params:{msg:$scope.msg},
+				params:{msg:$scope.msg}, //{parameter명 : parameter value}
 				headers:{"Content-Type":"application/x-www-form-urlencoded;charset=utf-8"} //post 방식으로 받는경우 header정보도 필요하다.
 			}).success(function(data){
 				//data : {toClient:"hello"} 구조의 object 이다.
