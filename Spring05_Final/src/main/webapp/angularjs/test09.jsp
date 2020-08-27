@@ -9,7 +9,7 @@
 <script src="../resources/js/angular.min.js"></script>
 <script>
 	// myApp 이라는 이름의 모듈 만들기
-	var myApp=angular.module("myApp", []);
+	var myApp=angular.module("myApp", []); // [] 는 끌어다쓰는 dependence 를 입력한다.
 	// 모듈을 이용해서 one 이라는 이름의 컨트롤러 만들기
 	myApp.controller("one", function($scope, $http){
 		//폼에 입력한 내용을 담을 모델

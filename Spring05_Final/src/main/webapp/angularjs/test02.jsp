@@ -21,7 +21,7 @@
 <button ng-click="count=0">리셋</button>
 
 <!-- count 모델안에 있는 값을 출력하기 -->
-<p>{{count}}</p>
+<p>{{count}}</p> <!-- xxx.innerText= $scope.count -->
 <p ng-bind="count"></p>
 </body>
 </html>
