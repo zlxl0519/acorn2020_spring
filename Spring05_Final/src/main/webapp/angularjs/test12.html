@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/angularjs/test12.html</title>
+<link rel="stylesheet" href="../resources/css/bootstrap.css" />
+<script src="../resources/js/angular.min.js"></script>
+<script>
+	/*
+		이런식으로 목록을 가져오고 다음페이지 로 하면 data 받아서 넣어주기만 하면 되고 ,페이지가 새로 로딩될필요가 없다.
+	*/
+	var cafeApp=angular.module("cafeApp",[]);
+	cafeApp.controller("cafeCtrl", function($scope, $http){
+		//페이지 로딩되는 시점에 실행되는 영역
+		$scope.pageNum=1;
+		//ajax 로 카페 글 목록을 요청
+		$http({
+			url:"/spring05/cafe/ajax_list.do", //html 은 el, jstl 이 없으니까 경로를 직접 적어야 된다.
+			method:"get",
+			params:{pageNum:$scope.pageNum}
+		}).success(function(data){
+			$scope.list=data;
+		});
+		//다음 페이지 버튼을 눌렀을때 호출되는 함수
+		$scope.next=function(){
+			$scope.pageNum++;
+			//ajax 로 카페 글 목록을 요청
+			$http({
+				url:"/spring05/cafe/ajax_list.do", //html 은 el, jstl 이 없으니까 경로를 직접 적어야 된다.
+				method:"get",
+				params:{pageNum:$scope.pageNum}
+			}).success(function(data){
+				$scope.list=data;
+			});
+		};
+		$scope.prev=function(){
+			if($scope.pageNum!=0){
+				$scope.pageNum--;
+				//ajax 로 카페 글 목록을 요청
+				$http({
+					url:"/spring05/cafe/ajax_list.do", //html 은 el, jstl 이 없으니까 경로를 직접 적어야 된다.
+					method:"get",
+					params:{pageNum:$scope.pageNum}
+				}).success(function(data){
+					$scope.list=data;
+				});
+			}
+		}
+		$scope.numPerPage = 5
+		$scope.maxSize = 5;
+		$scope.filteredTodos = []
+		  
+
+
+		$scope.makeTodos = function() {
+		  $scope.todos = [];
+		  for (i=1;i<=1000;i++) {
+		    $scope.todos.push({ text:"todo "+i, done:false});
+		  }
+		};
+		$scope.makeTodos(); 
+
+		$scope.$watch("pageNum + numPerPage", function() {
+		  var begin = (($scope.pageNum - 1) * $scope.numPerPage)
+		  , end = begin + $scope.numPerPage;
+
+		  $scope.filteredTodos = $scope.todos.slice(begin, end);
+		});
+		
+	});
+</script>
+</head>
+<body ng-app="cafeApp">
+	<div class="container" ng-controller="cafeCtrl">
+		<h1>카페 글 목록 입니다.</h1>
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>번호</th>
+					<th>작성자</th>
+					<th>제목</th>
+					<th>조회수</th>
+					<th>작성일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="tmp in list">
+					<td>{{tmp.num}}</td>
+					<td>{{tmp.writer}}</td>
+					<td>{{tmp.title}}</td>
+					<td ng-bind="tmp.viewCount"></td>
+					<td ng-bind="tmp.regdate"></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- ng-model은 페이지의 값(넘버), total-items는 페이징 할려는 아이템에 갯수, items-per-page는 한페이지에 보여줄 아이템의 갯수 -->
+		<pagination 
+		  	ng-model="pageNum"
+		  	total-items="list.length" 
+		  	items-per-page="numPerPage"
+		  	max-size="maxSize"  
+		  	boundary-links="true">
+		</pagination>
+		<button ng-click="next()" class="btn btn-outline-primary">다음 페이지</button>
+		<button ng-click="prev()" class="btn btn-primary">이전 페이지</button>
+	</div>
+</body>
+</html>

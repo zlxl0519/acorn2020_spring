@@ -13,7 +13,7 @@
 	//formCtrl 이라는 컨트롤러 만들기 
 	myApp.controller("formCtrl", function($scope, $http){
 		//angularjs  가 초기화 될때 최초 한번만 호출된다.
-		$scope.canUseId=false; //입력한 아이디 사용가능 여부 
+		//$scope.canUseId=false; //입력한 아이디 사용가능 여부 
 		$scope.idChanged=function(){
 			$http({
 				url:"checkid.do",
@@ -24,13 +24,17 @@
 				//data => {isExist:true} or {isExist:false} 인 object 이다.
 				//입력한 아이디가 DB 에 존재 하지 않아야지 사용할수 있다.
 				$scope.canUseId=!data.isExist;
+				$scope.myForm.id.$valid = !data.isExist;
+				$scope.myForm.id.$invalid= data.isExist;
 			});
 		};
 		//비밀번호 입력란을 입력했을때 호출되는 함수
-		$scope.isPwdEqual=true;
+		//$scope.isPwdEqual=true;
 		$scope.pwdChanged=function(){
 			//비밀번호를 같게 입력했는지 여부를 모델로 관리한다.
-			$scope.isPwdEqual=$scope.pwd==$scope.pwd2;
+			//$scope.isPwdEqual=$scope.pwd==$scope.pwd2;
+			$scope.myForm.pwd.$valid= $scope.pwd==$scope.pwd2;
+			$scope.myForm.pwd.$invalid=$scope.pwd!=$scope.pwd2;
 		}
 	});
 </script>
@@ -46,7 +50,7 @@
 				ng-model="id"
 				ng-required="true"
 				ng-pattern="/^[a-z].{4,9}$/"
-				ng-class="{'is-invalid': (myForm.id.$invalid || !canUseId) && myForm.id.$dirty,'is-valid': myForm.id.$valid && canUseId}"
+				ng-class="{'is-invalid':myForm.id.$invalid && myForm.id.$dirty,'is-valid': myForm.id.$valid}"
 				ng-change="idChanged()"/>
 			<small class="form-text text-muted">영문자 소문자로 시작하고 최소 5글자~10글자 이내로 입력 하세요.</small>
 			<div class="invalid-feedback">사용할수 없는 아이디 입니다.</div>
@@ -58,7 +62,7 @@
 				ng-required="true"
 				ng-minlength="5"
 				ng-maxlength="10" 
-				ng-class="{'is-invalid':(myForm.pwd.$invalid|| !isPwdEqual)&& myForm.pwd.$dirty, 'is-valid':myForm.pwd.$valid && isPwdEqual}"
+				ng-class="{'is-invalid':myForm.pwd.$invalid&& myForm.pwd.$dirty, 'is-valid':myForm.pwd.$valid}"
 				ng-change="pwdChanged()"/>
 				<!-- 오브젝트를 작성할때 {num_a:10}은 가능(_는 잘 인식된다) {num-a:10} 은 - 를 빼기로 인식해서 안되고, {'num-a':10} 으로 가능하다. -->
 			<small class="form-text text-muted">최소 5글자~10글자 이내로 입력 하세요.</small>
