@@ -81,9 +81,10 @@
 				ng-required="true"
 				ng-pattern="/@/"
 				ng-class="{'is-invalid':myForm.email.$invalid && myForm.email.$dirty ,'is-valid':myForm.email.$valid}"/>
+			<small class="form-text text-muted">xxx@이메일주소 형식으로 작성해주세요</small>
 			<div class="invalid-feedback">이메일 형식에 맞게 입력해 주세요.</div>
 		</div>
-		<button ng-disabled="myForm.$invalid || !canUseId || !isPwdEqual" class="btn btn-primary" type="submit">가입</button>
+		<button ng-disabled="myForm.$invalid" class="btn btn-primary" type="submit">가입</button>
 		<button class="btn btn-danger" type="reset">Reset</button>
 	</form>
 </div>
