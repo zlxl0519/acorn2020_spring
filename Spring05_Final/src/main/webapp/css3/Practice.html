@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/css3/Practice.html</title>
+<style>
+	.wrapper{
+		perspective: 500px;
+		perspective-origin: 50% 50%;
+		margin-top: 200px;
+		border: 1px solid red;
+		height:1000px;
+	}
+	.cube{
+		top:500px;
+		transform-style: preserve-3d;
+		transform-origin: 50% 50%;
+		position: relative;
+		width: 400px;
+		height: 400px;
+		margin: 0 auto; /* 가운데 정렬 */
+		/* cube 가 돌아가는 과정이 보인다. */
+		transition: all 0.5s ease-out;
+		/* .cube >div 를 앞으로 밀기 전에 .cube 를 뒤로 346px 밀어 넣기 */
+		transform: translateZ(-549px);
+	}
+	.cube > div{
+		position: absolute;
+		width: 400px;
+		height: 400px;
+		background-color: #2e272f;
+	}
+	.cube img{
+		width: 400px;
+		height: 400px;
+	}
+	.cube > div:nth-child(1){
+		transform: translateZ(549px);
+	}
+	.cube > div:nth-child(2){
+		/* 한면이 y 축으로 90도 돌아서 translateZ 축도 오른쪽을 보고있어서 앞으로 200px 밀린것 */
+		transform: rotateY(40deg) translateZ(549px);
+	}
+	.cube > div:nth-child(3){
+		transform: rotateY(80deg) translateZ(549px);
+	}
+	.cube > div:nth-child(4){
+		transform: rotateY(120deg) translateZ(549px);
+	}
+	.cube > div:nth-child(5){
+		transform: rotateY(160deg) translateZ(549px);
+	}
+	.cube > div:nth-child(6){
+		transform: rotateY(200deg) translateZ(549px);
+	}
+	.cube > div:nth-child(7){
+		transform: rotateY(240deg) translateZ(549px);
+	}
+	.cube > div:nth-child(8){
+		transform: rotateY(280deg) translateZ(549px);
+	}
+	.cube > div:nth-child(9){
+		transform: rotateY(320deg) translateZ(549px);
+	}
+	.cube:hover{
+		/* 회전할때도 translateZ(0px)로 관주되서 앞으로 튀어나오기 때문에
+			미리 translateZ(-346px) 로 넣어주는 것이다.  */
+		transform: translateZ(-549px) rotateY(40deg);
+	}
+	.control{
+		/*인라인 요소의 가운데 정렬*/
+		text-align : center
+	}			
+</style>
+</head>
+<body>
+<div class="wrapper">
+	<div class="cube">
+		<div><img src="../resources/myImages/sarang1.jpg"/></div>
+		<div><img src="../resources/myImages/sarang2.jpg"/></div>
+		<div><img src="../resources/myImages/sarang3.jpg"/></div>
+		<div><img src="../resources/myImages/sarang4.jpg"/></div>
+		<div><img src="../resources/myImages/sarang5.jpg"/></div>
+		<div><img src="../resources/myImages/sarang6.jpg"/></div>
+		<div><img src="../resources/myImages/sarang7.jpg"/></div>
+		<div><img src="../resources/myImages/sarang8.jpg"/></div>
+		<div><img src="../resources/myImages/sarang9.jpg"/></div>
+	</div>
+</div>
+<div class="control">
+	<button id="prevBtn">&larr;</button>
+	<button id="nextBtn">&rarr;</button>
+</div>
+<script src="../resources/js/jquery-3.5.1.js"></script>
+<script>
+	var rY=0;
+	$("#prevBtn").click(function(){
+		rY+=40;
+		rotate();
+	});
+	$("#nextBtn").click(function(){
+		rY-=40;
+		rotate();
+	});
+	function rotate(){
+		$(".cube").css("transform","translateZ(-549px) rotateY("+rY+"deg)");
+	}
+</script>
+</body>
+</html>
