@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/css3/Step05_Animation.html</title>
+<style>
+	.box{
+		width: 100px;
+		height: 100px;
+		background-color: #0f0;
+		border: 1px solid red;
+	}
+	
+	.box:hover{
+		/* keyframes 를 적으면 된다.*/
+		animation-name: myAni;
+		/* 동작이 되는 시간 */
+		animation-duration: 3s;
+		/* 적용 비율 */
+		animation-timing-function: linear;
+		/* 애니메이션 반복횟수 */
+		animation-iteration-count: 2;
+		/* 애니메이션 진행 방향 normal | reverse:꺼꾸로 동작하는것 | alternate:반복 동작하는것 */ 
+		animation-direction: alternate;
+	}
+	
+	/* 애니메이션 키프레임 정의하기*/
+	@keyframes myAni{/* myAny 부분은 맘대로 이름을 지을수 있다.*/
+		0%{/* 그냥 초기 상태를 나타낸다. */
+			background-color: #0f0;
+			transform: rotate(0deg) scale(1.0);
+		}
+		50%{
+			background-color: #f0f;
+			transform: rotate(180deg) scale(0.5);
+		}
+		100%{
+			background-color: #ff0;
+			transform: rotate(360deg) scale(1.5);
+		}
+	}
+</style>
+</head>
+<body>
+	<h1>animation 테스트</h1>
+	<div class="box"></div>
+</body>
+</html>

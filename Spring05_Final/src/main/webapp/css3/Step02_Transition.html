@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/css3/Step02_Transition.html</title>
+<style>
+	.box{
+		width:100px;
+		height:100px;
+		background-color:#999;
+	}
+	/* 클래스명이 box 인 요소에 마우스가 올라갔을때 적용할 css */
+	/* hover 라는 가상 선택자 */
+	.box:hover{
+		background-color: #f0f;
+		margin-left: 50px;
+		width: 150px;
+		height: 150px;
+	}
+	/*중간 전환과정을 보여준다.: Transition*/
+	.effect1{
+		/* transition 을 적용할 css 속성 */
+		transition-property: background-color;
+		/* transition 을 적용할 시간 */
+		transition-duration: 1s;
+		/* transition 적용 비율(linear는 일정한 비율) */
+		transition-timing-function: linear;
+	}
+	.effect2{
+		transition: background-color 1s linear;
+	}
+	.effect3{
+		transition:margin-left 1s linear;
+	}
+	.effect4{
+	/* 2가지를 적용할때는 , 로 나눠서 적용한다. */
+		transition:width 1s linear, height 2s linear;
+	}
+	.effect5{
+	/* 모든 css 속성을 적용할때는 all 을 쓴다. */
+		transition: all 1s linear;
+	}
+</style>
+</head>
+<body>
+<div class="box"></div>
+<div class="box effect1"></div>
+<div class="box effect2"></div>
+<div class="box effect3"></div>
+<div class="box effect4"></div>
+<div class="box effect5"></div>
+</body>
+</html>
