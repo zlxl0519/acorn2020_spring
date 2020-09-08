@@ -30,7 +30,7 @@
 </div>
 <script src="../resources/js/jquery-3.5.1.js"></script>
 <script>
-	$("#myBtn").on("mouseover",function(){
+	$("#myBtn").on("mouseover",function(){//특정 이벤트가 일어났을때 꼭 실행된다.(.on)
 		//한번만 동작한다.
 		$(this).addClass("animate__swing");
 	});
@@ -38,7 +38,8 @@
 		//여러번 동작한다.
 		$(this)
 		.addClass("animate__swing")
-		.one("animationend", function(){//애니메이션이 끝나는이벤트때 class 가 제거된다.
+		.one("animationend", function(){//.one 은 특정이벤트가 일어났을때 한번만 동작한다.
+			//애니메이션이 끝나는이벤트때 class 가 제거된다.
 			$(this).removeClass("animate__swing");
 		});
 	});
