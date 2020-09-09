@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="UTF-8">
+<title>/angularjs/test17.html</title>
+<script src="../resources/js/angular.min.js"></script>
+<script src="../resources/js/angular-route.min.js"></script>
+<script>
+	var myApp=angular.module("myApp", ["ngRoute"]);
+	//컨트롤러 만들기
+	myApp.controller("userListCtrl", function($scope){
+		//샘플데이터
+		$scope.userList=[{
+			name:"김구라",
+			email:"aaa@",
+			regdate:"2012"
+		},{
+			name:"해골",
+			email:"bbb@",
+			regdate:"2013"
+		},{
+			name:"원숭이",
+			email:"ccc@",
+			regdate:"2014"
+		}];
+	});
+	//싱글 페이지 라우터를 사용하기 위한 설정
+	myApp.config(function($routeProvider){//ng-view 에 출력이된다.
+		$routeProvider
+		.when("/home",{templateUrl:"include/home.html"})//아래 컨트롤러를 사용해서 user_list 요청을 관리하겠다는 내용
+		.when("/user_list",{templateUrl:"include/user_list.html", controller:"userListCtrl"})
+		.otherwise({redirectTo:"/home"}); //위에 다 해당되지 않았을 때는 리다일렉트로 home 이 출력인된다.
+	});
+</script>
+</head>
+<body>
+	<div class="container">
+		<h1>router 테스트 입니다.</h1>
+		<ul class="nav"><!-- # 은 페이지 내에서의 이동 -->
+			<li><a href="#home">홈</a></li>
+			<li><a href="#user_list">회원목록</a></li>
+		</ul>
+	</div>
+	<ng-view></ng-view>
+</body>
+</html>
