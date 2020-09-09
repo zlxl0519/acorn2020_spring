@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="UTF-8">
+<title>/angularjs/test15.html</title>
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<style>
+	/* in-animation 클래스를 가지고 있는 요소가 만들어질때 적용할 애니메이션 
+		만들어질때 순간적으로 클래스 ng-enter 가 생성된다.*/
+	.in-animation.ng-enter{
+		animation: bounceInDown 1s ease-out;
+	}
+	
+	/* <xxx class="imag-nimation ng-leave></xxx>" */
+	/* out-animation 클래스를 가지고 있는 요소가 제거될때 적용할 애니메이션 
+		제거될때 순간적으로 클래스 ng-leave 도 생성된다.*/
+	.out-animation.ng-leave{
+		animation: bounceOutRight 1s linear;
+	}
+</style>
+<script src="../resources/js/angular.min.js"></script>
+<!-- 추가 모듈 -->
+<script src="../resources/js/angular-animate.min.js"></script>
+<script>
+	var myApp=angular.module("myApp",["ngAnimate"]);
+	
+	myApp.controller("one",function($scope){
+		//그냥 넣으면 같은값이 들어갈때 오류가 난다.
+		//오브젝트로 포장해서 값을 넣으면 오류가 나지 않는다.
+		$scope.msgList=[];
+		$scope.addCliked=function(){
+			$scope.msgList.push({msg:$scope.inputMsg});
+			$scope.inputMsg="";
+		};
+	});
+</script>
+</head>
+<body ng-controller="one">
+	<h1>ngAnimate 테스트</h1>
+	<input type="checkbox" ng-model="isMake" /><br />
+	<img class=" in-animation out-animation" src="../resources/images/kim1.png" 
+		ng-if="isMake"/>
+	<h1>ul 에 메세지 추가 하기</h1>
+	<input type="text" ng-model="inputMsg" placeholder="메세지 입력..." />
+	<button ng-click="addCliked()">추가</button>
+	<ul>
+		<li class="in-animation" ng-repeat="tmp in msgList">{{tmp.msg}}</li>
+	</ul>
+</body>
+</html>

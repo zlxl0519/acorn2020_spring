@@ -28,6 +28,7 @@
 		position:absolute;
 		height:500px;
 		border: 1px solid red;
+		backface-visibility: hidden; /* 뒷면이 보이지 않게 설정 */
 	}
 	.control{
 		text-align:center;
@@ -155,52 +156,81 @@
 		return obj;
 	}
 	
-	// .carousel 에 일어나는 터치 이벤트(마우스이벤트 겸용) 처리 하기
-	$(".carousel").swipe({
-		swipeStatus:function(event, phase, direction, distance){
-			//상태 를 나타냄 start, move, end, cancle(75px 이하로 움직였을때)
-			$("#phase").text(phase);
-			// 움직이는 방향
-			$("#direction").text(direction);
-			//움직인 거리
-			$("#distance").text(distance);
-			var startRY=0;
-			switch(phase){
-			 case "start":
-		            //transition 제거
-		            $(".carousel").removeClass("transition-effect");
-		            //터치 시작된 시점의 rY 를 변수에 저장한다.
-		            startRY = rY;
-		            break;
-		          case "move":
-		            if(direction=="left"){
-		              //스와이프한 거리에 비례해서 rY 에 반영한다.
-		              rY = startRY - distance/8;
-		            }else if(direction=="right"){
-		              rY = startRY + distance/8;
-		            }
-		            //.carousel 회전 시키기
-		            rotate();
-		            break;
-		          case "end":
-		            //transition 효과 추가 하기
-		            $(".carousel").addClass("transition-effect");
-		            if(direction=="left"){
-		              rY = startRY - angle;
-		            }else if(direction=="right"){
-		              rY = startRY + angle;
-		            }
-		            rotate();
-		            break;
-		          case "cancel":
-		            $(".carousel").addClass("transition-effect");
-		            //취소 되었을때는 원상 복구 
-		            rY = startRY;
-		            rotate();
-		            break;
-			}
-		}
-	});
+	 //터치가 시작된 시점의 rY 를 저장할 변수
+    var startRY=0;
+	//carousel 를 현재 움직이고 있는지 여부
+	var isMoving=false;
+	
+    //swipe 이벤트 처리하기
+    $(".wrapper").swipe({
+        swipeStatus:function(event,phase,direction,distance){
+      	  $("#phase").text(phase);
+      	  $("#direction").text(direction);
+      	  $("#distance").text(distance);
+      	  
+          switch(phase){
+            case "start":
+              //transition 제거
+              $(".carousel").removeClass("transition-effect");
+              //터치 시작된 시점의 rY 를 변수에 저장한다.
+              startRY = rY;
+              //carousel 을 움직이고 있는 상태로 바꿔준다.
+              isMoving=true;
+              break;
+            case "move":
+              if(!isMoving)return; //움직이고 있는 상태가 아니라면 함수를 여기서 종료
+              if(direction=="left"){
+                //스와이프한 거리에 비례해서 rY 에 반영한다.
+                rY = startRY - distance/8;
+              }else if(direction=="right"){
+                rY = startRY + distance/8;
+              }
+              //.carousel 회전 시키기
+              rotate();
+              break;
+            case "end":
+              isMoving=false;
+              //transition 효과 추가 하기
+              $(".carousel").addClass("transition-effect");
+              if(direction=="left"){
+                rY = startRY - angle;
+              }else if(direction=="right"){
+                rY = startRY + angle;
+              }
+              rotate();
+              break;
+            case "cancel":
+              isMoving=false;
+              $(".carousel").addClass("transition-effect");
+              //취소 되었을때는 원상 복구 
+              rY = startRY;
+              rotate();
+              break;
+          }
+        },
+    	//아래위로 스크롤이 가능하게 해주는 옵션
+    	/* 
+    		없을때는 화면이 작고 div 가 큰 경우 아래로 스크롤 하기 위해 터치하면
+    		swipe 가 그 이벤트를 흡수 하기때문에 반응 하지 않는다
+    		아래 문구를추가하면 터치 스크롤 이벤트를 할수 있게 된다.
+    	*/
+    	//아래위로 화면을 스크롤 가능하도록
+    	allowPageScroll:"vertical",
+    	// 100 px 이상 움직여야 end 로 판정이 된다(역치 조절 가능, 역치를 100px)
+    	threshold:100
+    });
+	
+    $(".carousel").on("mouseout", function(){
+    	if(isMoving){//움직이고 있는 상태에서만
+    		//아래의 작업을 해준다
+    		isMoving=false;
+    		$(".carousel").addClass("transition-effect");
+	    	//취소 되었을때는 원상 복구 
+	        rY = startRY;
+	        rotate();
+    		
+    	}
+    });
 </script>
 </body>
 </html>
