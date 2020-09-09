@@ -19,6 +19,12 @@
 		animation-timing-function: ease-out;
 		animation-iteration-count:1; 
 	}
+	#loginForm{
+		box-shadow: 24px 10px 12px 7px rgba(90,90,150,1);
+		padding:10px;
+		border-radius:20px;
+		background-color:rgba(131,131,199,1);
+	}
 </style>
 </head>
 <body>
