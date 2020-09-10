@@ -8,9 +8,9 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="stylesheet" href="../resources/css/bootstrap.css" />
 <style>
-	/* .page-change-animation 클래스를 가지고 있는 요소가 만들어 질때 적용할 애니메니션 */
+	/* .page-change-animation 클래스를 가지고 있는 요소가 만들어 질때 적용할 애니메이션 */
 	.page-change-animation.ng-enter{
-		animation: flipInX 0.4s ease-out;
+		animation: fadeIn 0.4s ease-out;
 	}
 </style>
 <script src="../resources/js/angular.min.js"></script>
@@ -31,11 +31,32 @@
 		});
 		
 	});
+	cafeApp.controller("cafeDetailCtrl", function($scope, $http, $routeParams, $location){
+		//자세히 보여줄 글번호를 읽어온다.  /cafe_detail/:num  =>  /cafe_detail/3
+		var num=$routeParams.num; 
+		//해당글의 정보를 ajax 요청을 통해서 서버로 부터 얻어온다.
+		$http({
+			url:"/spring05/cafe/ajax_detail.do",
+			method:"GET",
+			params:{num:num}
+		}).success(function(data){
+			// {num:1, title:"xxx", content:"xxx", regdate:"xxx"}
+			console.log(data);
+			$scope.cafeDto=data;
+		});
+		//목록보기 버튼을 눌렀을때 호출되는 함수 // #/cafe_detail/3 => #/cafe_list 로 페이지 무브가 일어나야된다.
+		$scope.goList=function(){
+			//$location 객체를 이용해서 페이지내에서 이동하기
+			$location.url("/cafe_list");
+		}
+	});
+	
 	cafeApp.config(function($routeProvider){
 		//$routeProvider 객체를 이용해서 페이지 내에서의 이동 설정하기
 		$routeProvider
 		.when("/home", {templateUrl:"views/home.html"})
 		.when("/cafe_list", {templateUrl:"views/cafe_list.html", controller:"cafeListCtrl"})
+		.when("/cafe_detail/:num", {templateUrl:"views/cafe_detail.html", controller:"cafeDetailCtrl"})
 		.otherwise({redirectTo:"/home"});
 	});
 </script>
@@ -47,7 +68,7 @@
 		<li><a href="#home">Home</a></li>
 		<li><a href="#cafe_list">목록보기</a></li>
 	</ul>
-	<div data-ng-view></div>
+	<div data-ng-view class="page-change-animation"></div>
 </div>
 </body>
 </html>
