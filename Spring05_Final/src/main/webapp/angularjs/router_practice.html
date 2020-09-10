@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html data-ng-app="cafeApp">
+<head>
+<meta charset="UTF-8">
+<title>/angularjs/router_practice.html</title>
+<link rel="stylesheet" href="../resources/css/bootstrap.css" />
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<script src="../resources/js/angular.min.js"></script>
+<script src="../resources/js/angular-route.min.js"></script>
+<script src="../resources/js/angular-animate.min.js"></script>
+<script>
+	var cafeApp=angular.module("cafeApp", ["ngRoute", "ngAnimate"]);
+	cafeApp.controller("cafeListCtrl", function($scope, $http){
+		$http({
+			url:"/spring05/cafe/ajax_list.do",
+			method:"GET"
+		}).success(function(data){
+			$scope.cafeList=data;
+		});
+	});
+	
+	cafeApp.controller("cafeDtailCtrl", function($scope, $http, $routeParams, $location){
+		//자세히 보여줄 글번호를 읽어온다.  /cafe_detail/:num  =>  /cafe_detail/3
+		var num=$routeParams.num;
+		$http({
+			url:"/spring05/cafe/ajax_detail.do",
+			method:"GET",
+			params:{num:num}
+		}).success(function(data){
+			$scope.cafeDto=data;
+		});
+		
+		$scope.goList=function(){
+			$location.url("/cafe_list");
+		};
+	});
+	cafeApp.config(function($routeProvider){
+		$routeProvider
+		.when("/home", {templateUrl:"practice/home.html"})
+		.when("/cafe_list",{templateUrl:"practice/cafe_list.html", controller:"cafeListCtrl"})
+		.when("/cafe_detail/:num", {templateUrl:"practice/cafe_detail.html", controller:"cafeDtailCtrl"})
+		.otherwise("/home");
+	});
+</script>
+</head>
+<body>
+<div class="container">
+	<h1>Router 연습 예제 입니다.</h1>
+	<ul>
+		<li><a href="#home">Home</a></li>
+		<li><a href="#cafe_list">카페 목록 보기</a></li>
+	</ul>
+	<div data-ng-view></div>
+</div>
+</body>
+</html>
