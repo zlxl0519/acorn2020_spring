@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp">
+<head>
+<meta charset="UTF-8">
+<title>jsonp_loginform_angularjs.html</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<style>
+	.container{
+		width:500px;
+		height:350px;
+		margin: 10% 30% 50% 30%;
+		border: 5px double #e6dad4;
+		padding: 20px;
+		border-radius:10%;
+		-webkit-box-shadow: 18px 11px 13px 0px rgba(0,0,0,0.48);
+		-moz-box-shadow: 18px 11px 13px 0px rgba(0,0,0,0.48);
+		box-shadow: 18px 11px 13px 0px rgba(171,136,93,1);
+		background-color:#ff813d;
+	}
+	.container> h3{
+		width: 300px;
+		height:100px;
+		margin: 19% 80% 20% 19%;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+<script>
+	var myApp=angular.module("myApp", []);
+	myApp.controller("formCtrl", function($scope, $http){
+		$scope.onSubmit=function(){
+			var url="http://localhost:8888/spring05/users/jsonp_login.do?callback=JSON_CALLBACK"
+			$http
+			.jsonp(url, {params:{id:$scope.inputId, pwd:$scope.inputPwd}})
+			.success(function(data){
+				if(data.isSuccess){
+					$scope.id=data.id;
+					$scope.isLoginFail=false;
+				}else{
+					$scope.isLoginFail=true;
+				}
+			})
+			.error(function(data){
+				console.log(data);
+			});
+		};
+		$scope.logout=function(){
+			var url="http://localhost:8888/spring05/users/jsonp_logout.do?callback=JSON_CALLBACK";
+			$http
+			.jsonp(url)
+			.success(function(data){
+					$scope.id=null;
+					$scope.inputId="";
+					$scope.inputPwd="";	
+			});
+		}
+	});
+</script>
+</head>
+<body data-ng-controller="formCtrl">
+<div class="container">
+	<h1 class="text-monospace">Login</h1>
+	<h3 class="text-monospace animate__animated animate__rubberBand" data-ng-show="id !=null">
+		<strong>{{id}}</strong>님 로그인중...
+		<button class="btn btn-dark" data-ng-click="logout()">로그아웃</button>
+	</h3>
+	<form class="animate__animated animate__fadeInUp" data-ng-show="id==null" data-ng-submit="onSubmit()">
+		<div class="form-group">
+			<label for="id">아이디</label>
+			<input class="form-control" data-ng-model="inputId" type="text" name="id"/>
+		</div>
+		<div class="form-group">
+			<label for="pwd">비밀번호</label>
+			<input class="form-control" data-ng-model="inputPwd" type="text" name="pwd"/>
+		</div>
+		<div style="color:#a10b00;" data-ng-show="isLoginFail"><strong>아이디 혹은 비밀번호가 틀립니다.</strong></div>
+		<button class="btn btn-dark" type="submit">로그인</button>
+	</form>
+	
+</div>
+</body>
+</html>

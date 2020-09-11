@@ -1,6 +1,7 @@
 package com.gura.spring05.users.controller;
 
 import java.net.URLEncoder;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.gura.spring05.users.dto.UsersDto;
 import com.gura.spring05.users.service.UsersService;
 
@@ -168,5 +170,25 @@ public class UsersController {
 		Map<String, Object> map=new HashMap<>();
 		map.put("isSuccess", true);
 		return map;
+	}
+	@RequestMapping(value = "/users/jsonp_login", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONPObject jsonpLogin(UsersDto dto, HttpSession session, @RequestParam(defaultValue = "callback") String callback) {
+		
+		//로그인 성공인 경우 {"isSuccess": true, "id":"gura"}
+		//로그인 실패인 경우 {"isSuccess":false}
+		Map<String, Object> map=service.ajaxLoginProcess(dto, session);
+		//JSONPObject 로 응답하기
+		JSONPObject jo=new JSONPObject(callback, map);
+		return jo;
+	}
+	@RequestMapping(value = "/users/jsonp_logout", method = RequestMethod.GET)
+	@ResponseBody
+	public JSONPObject jsonpLogout(HttpSession session, @RequestParam(defaultValue = "callback") String callback) {
+		session.invalidate();
+		Map<String, Object> map=new HashMap<>();
+		map.put("isSuccess", true);
+		JSONPObject jo=new JSONPObject(callback, map);
+		return jo;
 	}
 }
