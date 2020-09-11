@@ -6,6 +6,7 @@
 	// 클라이언트에게 응답할 데이터라고 가정
 	int num=1;
 	String name="김구라";
+	System.out.println("callback 함수명:"+callback);
 %>
 <%if(callback !=null){ %>
 	<%=callback %>({num:<%=num %>, name:"<%=name %>"});
