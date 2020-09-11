@@ -18,7 +18,7 @@
 		$("<script/>").attr("src","http://localhost:8888/spring05/angularjs/jsonp01.jsp?callback=toClient")
 		.appendTo("head");
 	});
-	
+	//호출만 해놓으면 자동으로 호출되어지는 함수 : 콜백함수
 	function toClient(data){
 		console.log(data);
 		$("#result").text("번호:"+data.num+" 이름:"+data.name);
