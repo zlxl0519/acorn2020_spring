@@ -116,7 +116,7 @@ public class CafeController {
 	
 	@RequestMapping("/cafe/ajax_list")
 	@ResponseBody //List 로 리턴하고 @ResponseBody 라고 입력하면 json 으로 응답해준다.
-	public List<CafeDto> ajaxList(HttpServletRequest request){
+	public Map<String, Object> ajaxList(HttpServletRequest request){
 		
 		return cafeService.getList2(request);
 	}

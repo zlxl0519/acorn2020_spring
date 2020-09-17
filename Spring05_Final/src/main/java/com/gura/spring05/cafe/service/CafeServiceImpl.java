@@ -1,7 +1,9 @@
 package com.gura.spring05.cafe.service;
 
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -319,7 +321,7 @@ public class CafeServiceImpl implements CafeService{
 	}
 	//angularjs ajax_list
 	@Override
-	public List<CafeDto> getList2(HttpServletRequest request) {
+	public Map<String, Object> getList2(HttpServletRequest request) {
 		//보여줄 페이지의 번호
 		int pageNum=1;
 		//보여줄 페이지의 번호가 파라미터로 전달되는지 읽어와 본다.	
@@ -363,8 +365,36 @@ public class CafeServiceImpl implements CafeService{
 		}
 		//파일 목록 얻어오기
 		List<CafeDto> list=cafeDao.getList(dto);
+		//전체 row 의 갯수를 담을 변수// 전체 row 의 갯수를 알아야지 페이지를 나눌수 있다.
+		int totalRow=cafeDao.getCount(dto);
 		
-		return list;
+		//전체 페이지의 갯수 구하기 //나눈것의 실수를 정수값으로 올림해서 사용한다는뜻 // 실수를 나오게하려면 정수 나누기 실수를 해야되서 나누는건 double로 우선 캐스팅
+		int totalPageCount=
+				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		//시작 페이지 번호 //1,2,3이든 page_display_count 가 5 이면 0 // 정수 정수끼리 나누면 정수이기때문
+		int startPageNum=
+			1+((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+		//끝 페이지 번호
+		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
+		//끝 페이지 번호가 잘못된 값이라면 
+		if(totalPageCount < endPageNum){
+			endPageNum=totalPageCount; //보정해준다. 
+		}
+		//페이징 처리에 필요한 값을 Map 에 담아서
+		Map<String, Integer> paging=new HashMap<>();
+		paging.put("startPageNum", startPageNum);
+		paging.put("endPageNum", endPageNum);
+		paging.put("pageNum", pageNum);
+		paging.put("totalPageCount", totalPageCount);
+		
+		//글 목록과 페이징 처리에 관련된 값을 담을 Map 객체 생성
+		Map<String, Object> map=new HashMap<>();
+		//글목록을 전체 Map 에 담아준다
+		map.put("list", list);
+		//전체 Map 에 담아준다.
+		map.put("paging", paging);
+		
+		return map;
 	}
 	
 }
