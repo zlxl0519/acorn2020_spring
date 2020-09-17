@@ -171,17 +171,7 @@ public class UsersController {
 		map.put("isSuccess", true);
 		return map;
 	}
-	@RequestMapping(value = "/users/jsonp_login", method = RequestMethod.GET)
-	@ResponseBody
-	public JSONPObject jsonpLogin(UsersDto dto, HttpSession session, @RequestParam(defaultValue = "callback") String callback) {
-		
-		//로그인 성공인 경우 {"isSuccess": true, "id":"gura"}
-		//로그인 실패인 경우 {"isSuccess":false}
-		Map<String, Object> map=service.ajaxLoginProcess(dto, session);
-		//JSONPObject 로 응답하기
-		JSONPObject jo=new JSONPObject(callback, map);
-		return jo;
-	}
+	
 	@RequestMapping(value = "/users/jsonp_logout", method = RequestMethod.GET)
 	@ResponseBody
 	public JSONPObject jsonpLogout(HttpSession session, @RequestParam(defaultValue = "callback") String callback) {
