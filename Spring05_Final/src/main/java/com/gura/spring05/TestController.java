@@ -3,15 +3,32 @@ package com.gura.spring05;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.gura.spring05.users.service.UsersService;
 
 @Controller
 public class TestController {
+	
+	@Autowired
+	private UsersService usersService;
+	
+	@RequestMapping("/react/send")
+	@ResponseBody
+	public Map<String, Object> sendMessage(@RequestParam String msg){
+		// msg=xxx 파라미터 추출된 내용 콘솔창에 출력하기
+		System.out.println(msg);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("isSuccess", true);
+		map.put("msg", "ajax 전송 잘 받았어~ 클리아언트야");
+		return map;
+	}
+	
 	
 	@RequestMapping("/api/get_info")
 	@ResponseBody
