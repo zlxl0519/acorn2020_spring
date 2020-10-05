@@ -43,27 +43,30 @@
 	<p class="text-monospace alert alert-success" id="result"></p>
 </div>
 <script>
+	//로그인 버튼을 누르면 form 에 submit 이벤트가 일어나고
+	// 해당 이벤트가 일어났을때 호출되는 함수 등록
 	$("#myForm").on("submit" ,function(){
-		var id=$("#id").val();
-		var pwd=$("#pwd").val();
+		//입력한 아이디 비밀번호를 읽어온다.
+		var inputId=$("#id").val();
+		var inputPwd=$("#pwd").val();
 		
 		$.ajax({
-			url:"http://localhost:8888/spring05/users/jsonp_login.do",
+			url:"http://localhost:8888/spring05/api/jsonp_login.do",
 			dataType:"jsonp",
-			data:{id:id, pwd:pwd},
+			data:{id:inputId, pwd:inputPwd},
 			success:function(data){
 				console.log(data);
-				if(data.isSuccess){
-					$("#result").text("로그인 성공여부:"+data.isSuccess+" 아이디:"+data.id);
+				if(data.isValid){
+					$("#result").text("로그인 정보가 일치합니다.");
 				}else{
-					$("#result").text("로그인 성공여부:"+data.isSuccess);
+					$("#result").text("로그인 정보가 일치하지 않습니다.");
 				}
 			},
 			error:function(data){
 				console.log(data);
 			}
 		});
-		return false;
+		return false;// 폼 전송 막기
 	});
 </script>
 </body>
