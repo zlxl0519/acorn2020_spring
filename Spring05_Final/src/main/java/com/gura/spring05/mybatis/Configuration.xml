@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+<<<<<<< HEAD
   "http://mybatis.org/dtd/mybatis-3-config.dtd"><!-- 이거때문에 여기의 형식이 정해지는 것 -->
 <configuration>
 	<!-- type 별칭 등록 -->
@@ -22,3 +23,35 @@
 		<mapper resource="com/gura/spring05/mybatis/ShopMapper.xml"/>
 	</mappers>
 </configuration>
+=======
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- type  별칭 등록 -->
+	<typeAliases>
+		<typeAlias type="com.gura.spring05.users.dto.UsersDto" 
+			alias="usersDto"/>
+		<typeAlias type="com.gura.spring05.file.dto.FileDto" 
+			alias="fileDto"/>
+		<typeAlias type="com.gura.spring05.cafe.dto.CafeDto"
+			alias="cafeDto"/>		
+		<typeAlias type="com.gura.spring05.cafe.dto.CafeCommentDto"
+			alias="cafeCommentDto"/>
+		<typeAlias type="com.gura.spring05.shop.dto.ShopDto"
+			alias="shopDto"/>
+		<typeAlias type="com.gura.spring05.shop.dto.OrderDto"
+			alias="orderDto"/>		
+	</typeAliases>
+	
+	<!-- Mapper 등록 -->
+	<mappers>
+		<mapper resource="com/gura/spring05/mybatis/UsersMapper.xml"/>
+		<mapper resource="com/gura/spring05/mybatis/FileMapper.xml"/>
+		<mapper resource="com/gura/spring05/mybatis/CafeMapper.xml"/>
+		<mapper resource="com/gura/spring05/mybatis/CafeCommentMapper.xml"/>
+		<mapper resource="com/gura/spring05/mybatis/ShopMapper.xml"/>
+	</mappers>
+	
+</configuration>
+
+
+>>>>>>> refs/remotes/upstream/master

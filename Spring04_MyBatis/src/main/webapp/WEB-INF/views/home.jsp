@@ -12,7 +12,10 @@
 	<ul><%--myBatis 기반으로 사용한다. --%>
 		<li><a href="member/list.do">회원 목록 보기</a></li>
 		<li><a href="todo/list.do">할일 목록 보기</a></li>
+<<<<<<< HEAD
 		<%--스프링에서 json 응답이 있다. --%>
+=======
+>>>>>>> refs/remotes/upstream/master
 		<li><a href="json01.do">json 응답01</a></li>
 		<li><a href="json02.do">json 응답02</a></li>
 		<li><a href="json03.do">json 응답03</a></li>
@@ -29,6 +32,7 @@
 	
 	<h2>파일 업로드 테스트</h2>
 	<form action="upload.do" method="post" enctype="multipart/form-data">
+<<<<<<< HEAD
 		제목<input type="text" name="title" /><br />
 		첨부파일<input type="file" name="myFile" /><br />
 		<button type="submit">업로드</button>
@@ -38,11 +42,22 @@
 	<form action="upload2.do" method="post" enctype="multipart/form-data">
 		제목<input type="text" name="title" /><br />
 		첨부파일<input type="file" name="myFile" /><br />
+=======
+		제목<input type="text" name="title"/><br/>
+		첨부파일<input type="file" name="myFile"/><br/>
+		<button type="submit">업로드</button>
+	</form>
+	<h2>파일 업로드 테스트2</h2>
+	<form action="upload2.do" method="post" enctype="multipart/form-data">
+		제목<input type="text" name="title"/><br/>
+		첨부파일<input type="file" name="myFile"/><br/>
+>>>>>>> refs/remotes/upstream/master
 		<button type="submit">업로드</button>
 	</form>
 </div>
 <script src="resources/js/jquery-3.5.1.js"></script>
 <script>
+<<<<<<< HEAD
 	//JSONController json string 이 jquery 에서 data 가 object or array 로 바껴서 나온다.
 	$("#testBtn").on("click", function(){
 		$.ajax({
@@ -51,6 +66,15 @@
 			success:function(data){
 				//data는 plain object or array 이다.
 				console.log(data)
+=======
+	$("#testBtn").on("click", function(){
+		$.ajax({
+			url:"json06.do",
+			method:"GET",
+			success:function(data){
+				//data 는 plain object or array 이다.
+				console.log(data);
+>>>>>>> refs/remotes/upstream/master
 			}
 		});
 	});

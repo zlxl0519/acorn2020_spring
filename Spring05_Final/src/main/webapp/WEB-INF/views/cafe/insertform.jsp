@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 <title>/cafe/insertform.jsp</title>
+=======
+<title>/views/cafe/insertform.jsp</title>
+>>>>>>> refs/remotes/upstream/master
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 <style>
 	/* textarea 의 크기가 SmartEditor 의 크기가 된다. */

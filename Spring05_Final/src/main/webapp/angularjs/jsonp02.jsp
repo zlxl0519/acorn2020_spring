@@ -10,5 +10,12 @@
 <%if(callback != null){ %>
 	<%=callback %>({isSuccess:true});
 <%}else{ %>
+<<<<<<< HEAD
 	{"isSuccess":false}
 <%} %>
+=======
+	{"isSuccess":true}
+<%} %>
+
+
+>>>>>>> refs/remotes/upstream/master

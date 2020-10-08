@@ -2,10 +2,17 @@ package com.gura.spring05.shop.dto;
 
 //주문 정보를 담을 Dto
 public class OrderDto {
+<<<<<<< HEAD
 	private int num; // 주문 번호
 	private String id; //주문자의 아이디
 	private int code; //상품번호
 	private String addr; // 배송 주소
+=======
+	private int num;//주문 번호
+	private String id; //주문자의 아이디
+	private int code; //상품번호
+	private String addr; //배송 주소
+>>>>>>> refs/remotes/upstream/master
 	
 	public OrderDto() {}
 

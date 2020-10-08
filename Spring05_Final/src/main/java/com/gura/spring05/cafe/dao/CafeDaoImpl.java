@@ -21,6 +21,7 @@ public class CafeDaoImpl implements CafeDao{
 
 	@Override
 	public int getCount(CafeDto dto) {
+<<<<<<< HEAD
 		
 		return session.selectOne("cafe.getCount", dto);
 	}
@@ -59,3 +60,46 @@ public class CafeDaoImpl implements CafeDao{
 
 	
 }
+=======
+
+		return session.selectOne("cafe.getCount", dto);
+	}
+
+	@Override
+	public void insert(CafeDto dto) {
+		session.insert("cafe.insert", dto);
+	}
+
+	@Override
+	public CafeDto getData(int num) {
+		return session.selectOne("cafe.getData", num);
+	}
+
+	@Override
+	public void addViewCount(int num) {
+		session.update("cafe.addViewCount", num);
+	}
+
+	@Override
+	public void delete(int num) {
+		session.delete("cafe.delete", num);
+	}
+
+	@Override
+	public void update(CafeDto dto) {
+		session.update("cafe.update", dto);
+	}
+	//키워드가 들어있는 CafeDto 를 전달받아서 글 정보를 리턴하는 메소드 
+	@Override
+	public CafeDto getData(CafeDto dto) {
+		
+		return session.selectOne("cafe.getData2", dto);
+	}
+	
+}
+
+
+
+
+
+>>>>>>> refs/remotes/upstream/master

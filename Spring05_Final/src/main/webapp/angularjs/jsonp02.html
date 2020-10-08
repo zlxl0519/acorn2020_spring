@@ -9,6 +9,7 @@
   crossorigin="anonymous"></script>
 </head>
 <body>
+<<<<<<< HEAD
 <h1>jQuery 를 활용한 jsonp 예제</h1>
 <button id="getBtn">화원 정보 얻어오기</button>
 <p id="result"></p>
@@ -29,3 +30,29 @@
 </script>
 </body>
 </html>
+=======
+<h1>jQuery 를 활용한  jsonp 예제</h1>
+<button id="getBtn">회원 정보 얻어오기</button>
+<p id="result"></p>
+<script>
+	$("#getBtn").click(function(){
+		$.ajax({
+			url:"http://localhost:8888/spring05/angularjs/jsonp01.jsp",
+			dataType:"jsonp",
+			success:function(data){
+				console.log(data);
+				$("#result").text("번호:"+data.num+" 이름:"+data.name);
+			},
+			error:function(data){
+				console.log(data);
+			}
+		});
+	});
+</script>	
+</body>
+</html>
+
+
+
+
+>>>>>>> refs/remotes/upstream/master

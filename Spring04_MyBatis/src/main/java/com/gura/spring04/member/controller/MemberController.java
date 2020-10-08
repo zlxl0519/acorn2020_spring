@@ -1,17 +1,16 @@
 package com.gura.spring04.member.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+<<<<<<< HEAD
 import org.springframework.validation.BindingResult;
+=======
+>>>>>>> refs/remotes/upstream/master
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.gura.spring04.member.dao.MemberDao;
 import com.gura.spring04.member.dto.MemberDto;
 import com.gura.spring04.member.service.MemberService;
 
@@ -22,6 +21,7 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+<<<<<<< HEAD
 	//회원 삭제 요청 처리
 	@RequestMapping("/member/delete")
 	public String delete(@RequestParam int num) {//@RequestParam(defaultValue = "") 은 디폴트 값을 지정할수 잇다 정보가 안넘어올때 사용.
@@ -53,6 +53,45 @@ public class MemberController {
 	//회원 추가 로직
 	@RequestMapping("/member/insert")
 	public String insert(@ModelAttribute MemberDto dto) {//전송되는 parameter는 dto 를 선언하면 가져온다.
+=======
+	//POST 방식 /member/update 요청 처리
+	@RequestMapping(value = "/member/update", method=RequestMethod.POST)
+	public String update(@ModelAttribute MemberDto dto) {
+		
+		service.updateMember(dto);
+		
+		return "member/update";
+	}
+	
+	
+	// GET 방식 /member/updateform 요청 처리 
+	@RequestMapping(value = "/member/updateform",
+			method = RequestMethod.GET)
+	public ModelAndView updateform(@RequestParam int num,
+			ModelAndView mView) {
+		
+		service.getMember(num, mView);
+		
+		//view 페이지 정보를 ModelAndView 객체에 담는다.
+		mView.setViewName("member/updateform");
+		//ModelAndView 객체를 리턴해준다.
+		return mView;
+	}
+	
+	//회원 삭제 요청 처리
+	@RequestMapping("/member/delete")
+	public String delete(@RequestParam int num) {
+		
+		service.deleteMember(num);
+		
+		//리다일렉트 응답
+		return "redirect:/member/list.do";
+	}
+	
+	//회원 추가 요청처리
+	@RequestMapping("/member/insert")
+	public String insert(@ModelAttribute MemberDto dto) {
+>>>>>>> refs/remotes/upstream/master
 		//회원 정보를 DB 에 저장하고
 		service.addMember(dto);
 		//view page 로 forward 이동해서 응답

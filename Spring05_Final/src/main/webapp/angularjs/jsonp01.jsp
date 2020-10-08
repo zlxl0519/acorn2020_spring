@@ -7,9 +7,20 @@
 	int num=1;
 	String name="김구라";
 	System.out.println("callback 함수명:"+callback);
+<<<<<<< HEAD
 %>
 <%if(callback !=null){ %>
 	<%=callback %>({num:<%=num %>, name:"<%=name %>"});
 <%}else{ %>
 	{"num":<%=num %>, "name":"<%=name %>"}
 <%} %>
+=======
+%>    
+<%if(callback != null){ %>
+	<%=callback %>({num:<%=num %>, name:"<%=name %>"});
+<%}else{ %>
+	{"num":<%=num %>, "name":"<%=name %>"}
+<%} %>
+
+
+>>>>>>> refs/remotes/upstream/master

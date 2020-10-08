@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<<<<<<< HEAD
 
 <mapper namespace="member"><!-- 여기에 SQL 문을 작성한다. 따로 작성해 놓고 필요한 곳에서 불러다 쓴다. -->
 	<insert id="insert" parameterType="memberDto" >
 		insert into member
 		(num, name, addr)<!-- MemberDto 안에있는 데이터가 #{} 으로 자동 바인딩된다.조건은 Dto 필드명과 같아야 된다. -->
 		values(member_seq.nextval, #{name}, #{addr})
+=======
+<mapper namespace="member">
+	<insert id="insert" 
+		parameterType="memberDto">
+		INSERT INTO member
+		(num, name, addr)
+		VALUES(member_seq.NEXTVAL, #{name}, #{addr})
+>>>>>>> refs/remotes/upstream/master
 	</insert>
 	
 	<update id="update" parameterType="memberDto">
+<<<<<<< HEAD
 		update member
 		set name=#{name}, addr=#{addr}
 		where num=#{num}
+=======
+		UPDATE member
+		SET name=#{name}, addr=#{addr}
+		WHERE num=#{num}
+>>>>>>> refs/remotes/upstream/master
 	</update>
 	
 	<delete id="delete" parameterType="int">
@@ -19,15 +34,31 @@
 		where num=#{num} <!-- parameterType 이 int 라 #{num} 은 아무거나 적어도 상관없다. 데이터를 하나만 가지고 오기때문에 -->
 	</delete>
 	
+<<<<<<< HEAD
 	<select id="getData" parameterType="int" resultType="memberDto">
 		select num, name, addr <!-- 칼럼명과 dto 의 필드명과 같아야 dto에 담긴다. 칼럼명과 dto 가 다른 경우는 칼럼명의 별칭을 지정해준다. -->
 		from member
 		where num=#{num}
+=======
+	<select id="getData" parameterType="int" 
+		resultType="memberDto">
+		SELECT num,name,addr
+		FROM member
+		WHERE num=#{num}
+>>>>>>> refs/remotes/upstream/master
 	</select>
+<<<<<<< HEAD
 	<!-- select 문은 row 하나를 호출하느냐 list 로 호출하느냐는 여기서는 결정하는 것이 아니라 사용할 곳에서 정하는 것이다. -->
 	<select id="getList" resultType="memberDto">
 		select num, name, addr
 		from member
 		order by num asc <!-- ; 은 붙이면 안된다. -->
+=======
+	
+	<select id="getList" resultType="memberDto">
+		SELECT num,name,addr
+		FROM member
+		ORDER BY num ASC
+>>>>>>> refs/remotes/upstream/master
 	</select>
 </mapper>

@@ -17,6 +17,7 @@
 	$("#sendBtn").click(function(){
 		//서버에 전송할 문자열을 읽어온다. 
 		var msg=$("#inputMsg").val();
+<<<<<<< HEAD
 
 		$.ajax({
 			url:"http://localhost:8888/spring05/angularjs/jsonp02.jsp",
@@ -34,3 +35,26 @@
 </script>	
 </body>
 </html>
+=======
+		
+		$.ajax({
+			url:"http://localhost:8888/spring05/angularjs/jsonp02.jsp",
+			dataType:"jsonp",
+			data:{msg:msg},
+			success:function(data){
+				console.log(data);
+				$("#result").text(JSON.stringify(data));
+			},
+			error:function(data){
+				console.log(data);
+			}
+		});
+	});
+</script>	
+</body>
+</html>
+
+
+
+
+>>>>>>> refs/remotes/upstream/master

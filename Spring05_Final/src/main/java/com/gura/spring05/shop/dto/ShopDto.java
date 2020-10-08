@@ -1,11 +1,19 @@
 package com.gura.spring05.shop.dto;
 
 public class ShopDto {
+<<<<<<< HEAD
 	private int num; // 상품번호
 	private String name; //상품명
 	private int price; // 가격
 	private int remainCount;// 재고갯수
 	private String id; //주문자 아이디
+=======
+	private int num;//상품번호
+	private String name;//상품명
+	private int price;//가격
+	private int remainCount;//재고 갯수
+	private String id;//주문자 아이디
+>>>>>>> refs/remotes/upstream/master
 	
 	public ShopDto() {}
 

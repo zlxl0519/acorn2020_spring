@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+<<<<<<< HEAD
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,6 +29,42 @@
 		</div>
 		<button type="submit" onclick="submitContents(this);">수정확인</button>
 		<button type="reset">취소</button>
+=======
+    pageEncoding="UTF-8"%> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>/views/cafe/updateform.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
+<style>
+	#content{
+		width: 100%;
+		height: 300px;
+	}
+</style>
+</head>
+<body>
+<div class="container">
+	<h1>글 수정 양식 입니다.</h1>
+	<form action="update.do" method="post">
+		<input type="hidden" name="num" value="${dto.num }"/>
+		<div class="form-group">
+			<label for="num">글번호</label>
+			<input class="form-control" type="text" id="num" value="${dto.num }" disabled/>
+		</div>
+		<div class="form-group">
+			<label for="title">제목</label>
+			<input class="form-control" type="text" id="title" name="title" 
+				value="${dto.title }"/>
+		</div>
+		<div class="form-group">
+			<label for="content">내용</label>
+			<textarea class="form-control" name="content" id="content">${dto.content }</textarea>
+		</div>
+		<button class="btn btn-outline-primary" type="submit" onclick="submitContents(this);">수정확인</button>
+		<button class="btn btn-outline-warning" type="reset">취소</button>
+>>>>>>> refs/remotes/upstream/master
 	</form>
 </div>
 <!-- SmartEditor 에서 필요한 javascript 로딩  -->

@@ -1,7 +1,10 @@
 package com.gura.spring05.users.dao;
 
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
 
+=======
+>>>>>>> refs/remotes/upstream/master
 import com.gura.spring05.users.dto.UsersDto;
 
 public interface UsersDao {

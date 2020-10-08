@@ -11,3 +11,13 @@ public interface MemberService {
 	public void getMember(int num, ModelAndView mView);
 	public void getListMember(ModelAndView mView);
 }
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+>>>>>>> refs/remotes/upstream/master

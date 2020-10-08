@@ -22,6 +22,7 @@ public class ShopController {
 	}
 	
 	@RequestMapping("/shop/private/buy")
+<<<<<<< HEAD
 	public ModelAndView buy(HttpServletRequest request, 
 			ModelAndView mView) {
 		service.buy(request, mView);
@@ -29,3 +30,26 @@ public class ShopController {
 		return mView;
 	}
 }
+=======
+	public ModelAndView buy(HttpServletRequest request,
+			ModelAndView mView) {
+		service.buy(request, mView);
+		mView.setViewName("shop/buy");
+		return mView;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> refs/remotes/upstream/master

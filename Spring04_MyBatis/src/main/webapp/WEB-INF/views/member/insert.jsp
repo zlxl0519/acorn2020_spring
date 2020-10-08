@@ -7,10 +7,17 @@
 <title>/views/member/insert.jsp</title>
 </head>
 <body>
+<<<<<<< HEAD
 <p>
 	<strong>${param.name }</strong> 님의 정보가 추가 되었습니다.
 	<a href="list.do">확인</a>	
 </p>
 
+=======
+<p> 
+	<strong>${param.name }</strong> 님의 정보가 추가 되었습니다.
+	<a href="list.do">확인</a>
+</p>
+>>>>>>> refs/remotes/upstream/master
 </body>
 </html>

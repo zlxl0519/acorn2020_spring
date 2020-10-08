@@ -10,7 +10,11 @@
 </head>
 <body>
 <div class="container">
+<<<<<<< HEAD
 	<a href="insertform.do">회원 추가 폼</a><%--/member/inserform.do 로 넘어간다. --%>
+=======
+	<a href="insertform.do">회원 추가 폼</a>
+>>>>>>> refs/remotes/upstream/master
 	<h1>회원 목록 입니다.</h1>
 	<table class="table">
 		<thead class="thead-dark">

@@ -14,6 +14,7 @@
 		[ 파일 업로드 폼 작성법 ]
 		1. method="post"
 		2. 폼에 enctype="multipart/form-data" 속성 추가
+<<<<<<< HEAD
 		3. <input type="file"/> 을 이용한다.
 	 --%>
 	<form action="upload.do" method="post" enctype="multipart/form-data">
@@ -31,3 +32,27 @@
 </div>
 </body>
 </html>
+=======
+		3. <input type="file" /> 을 이용한다.  
+	 --%>
+	<form action="upload.do" method="post" enctype="multipart/form-data">
+		<div class="form-group">
+			<label for="title">제목(설명)</label>
+			<input class="form-control" type="text" name="title" id="title"/>
+		</div>
+		<div class="form-group">
+			<label for="myFile">첨부 파일</label>
+			<input class="form-control" type="file" name="myFile" id="myFile"/>
+		</div>
+		<button class="btn btn-outline-primary"  type="submit">업로드</button>
+	</form>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+>>>>>>> refs/remotes/upstream/master

@@ -13,6 +13,7 @@ import com.gura.spring05.users.dto.UsersDto;
 public interface UsersService {
 	public Map<String, Object> isExistId(String inputId);
 	public void addUser(UsersDto dto);
+<<<<<<< HEAD
 	public void loginProcess(UsersDto dto, ModelAndView mView, HttpSession session);//mView 에는 처리 결과를 담도록
 	public void getInfo(HttpSession session, ModelAndView mView);//아이디 인식을 위해 session, 개인정보를 받기 위해 mView
 	public void deleteUser(HttpSession session);
@@ -22,3 +23,25 @@ public interface UsersService {
 	public Map<String, Object> ajaxLoginProcess(UsersDto dto, HttpSession session);
 	public boolean jsonpLogin(UsersDto dto);
 }
+=======
+	public void loginProcess(UsersDto dto, ModelAndView mView,
+			HttpSession session);
+	public void getInfo(HttpSession session, ModelAndView mView);
+	public void deleteUser(HttpSession session);
+	public Map<String, Object> saveProfileImage(HttpServletRequest request,
+			MultipartFile mFile);
+	public void updateUser(HttpSession session, UsersDto dto);
+	public void updateUserPwd(HttpSession session, UsersDto dto,
+			ModelAndView mView);
+	public Map<String, Object> ajaxLoginProcess(UsersDto dto, HttpSession session);
+	public boolean jsonpLogin(UsersDto dto);
+}
+
+
+
+
+
+
+
+
+>>>>>>> refs/remotes/upstream/master
